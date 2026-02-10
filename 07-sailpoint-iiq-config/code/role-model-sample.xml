@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- SailPoint IIQ Role Model Sample -->
+<!-- Demonstrates birthright, IT, business, and organizational roles -->
+
+<sailpoint>
+
+  <!-- BIRTHRIGHT ROLE — Auto-assigned to all active employees -->
+  <Bundle name="Corporate-Baseline" type="it">
+    <Description>Baseline access for all employees: email, intranet, HR self-service</Description>
+    <Profiles>
+      <Profile application="Active Directory">
+        <Constraints>
+          <Filter operation="EQ" property="memberOf" value="CN=All-Employees,OU=Groups,DC=corp,DC=local"/>
+        </Constraints>
+      </Profile>
+      <Profile application="Entra ID">
+        <Constraints>
+          <Filter operation="EQ" property="groups" value="grp-all-employees"/>
+        </Constraints>
+      </Profile>
+    </Profiles>
+    <AssignmentRule>
+      <Description>Auto-assign to all active identities</Description>
+      <!-- Selector: identity.status == "Active" -->
+    </AssignmentRule>
+  </Bundle>
+
+  <!-- IT ROLE — Single-system entitlement -->
+  <Bundle name="AD-Engineering-ReadWrite" type="it">
+    <Description>Engineering department AD group</Description>
+    <Profiles>
+      <Profile application="Active Directory">
+        <Constraints>
+          <Filter operation="EQ" property="memberOf" value="CN=Engineering-RW,OU=Groups,DC=corp,DC=local"/>
+        </Constraints>
+      </Profile>
+    </Profiles>
+  </Bundle>
+
+  <Bundle name="Jira-Developer" type="it">
+    <Description>Jira developer project access</Description>
+    <Profiles>
+      <Profile application="Jira">
+        <Constraints>
+          <Filter operation="EQ" property="role" value="Developer"/>
+        </Constraints>
+      </Profile>
+    </Profiles>
+  </Bundle>
+
+  <!-- BUSINESS ROLE — Bundles multiple IT roles -->
+  <Bundle name="Engineer" type="business">
+    <Description>Engineering job function: AD + Jira + GitHub access</Description>
+    <Inheritance>
+      <Reference class="sailpoint.object.Bundle" name="Corporate-Baseline"/>
+      <Reference class="sailpoint.object.Bundle" name="AD-Engineering-ReadWrite"/>
+      <Reference class="sailpoint.object.Bundle" name="Jira-Developer"/>
+    </Inheritance>
+    <AssignmentRule>
+      <Description>Auto-assign when department == Engineering</Description>
+    </AssignmentRule>
+  </Bundle>
+
+  <!-- ORGANIZATIONAL ROLE — Department-scoped -->
+  <Bundle name="Finance-Department" type="organizational">
+    <Description>Finance department access: ERP read, budget reports</Description>
+    <Profiles>
+      <Profile application="ERP">
+        <Constraints>
+          <Filter operation="EQ" property="role" value="AP-Viewer"/>
+        </Constraints>
+      </Profile>
+    </Profiles>
+    <AssignmentRule>
+      <Description>Auto-assign when department == Finance</Description>
+    </AssignmentRule>
+  </Bundle>
+
+</sailpoint>

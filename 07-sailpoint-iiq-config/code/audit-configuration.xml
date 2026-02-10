@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- SailPoint IIQ Audit Configuration -->
+<!-- Ensures all identity governance events are logged -->
+
+<sailpoint>
+
+  <AuditConfig name="SMG-Audit-Config">
+    <Description>Audit configuration for Stella Maris Governance packs</Description>
+
+    <!-- Lifecycle events -->
+    <AuditAction name="IdentityCreate" enabled="true"/>
+    <AuditAction name="IdentityUpdate" enabled="true"/>
+    <AuditAction name="IdentityDisable" enabled="true"/>
+    <AuditAction name="IdentityDelete" enabled="true"/>
+
+    <!-- Provisioning -->
+    <AuditAction name="ProvisioningCreate" enabled="true"/>
+    <AuditAction name="ProvisioningModify" enabled="true"/>
+    <AuditAction name="ProvisioningDisable" enabled="true"/>
+    <AuditAction name="ProvisioningEnable" enabled="true"/>
+    <AuditAction name="ProvisioningDelete" enabled="true"/>
+
+    <!-- Certifications -->
+    <AuditAction name="CertificationApprove" enabled="true"/>
+    <AuditAction name="CertificationRevoke" enabled="true"/>
+    <AuditAction name="CertificationRemediate" enabled="true"/>
+    <AuditAction name="CertificationDelegate" enabled="true"/>
+
+    <!-- SOD -->
+    <AuditAction name="PolicyViolationDetected" enabled="true"/>
+    <AuditAction name="PolicyViolationBlocked" enabled="true"/>
+    <AuditAction name="PolicyExceptionApproved" enabled="true"/>
+
+    <!-- Access Requests -->
+    <AuditAction name="AccessRequestSubmitted" enabled="true"/>
+    <AuditAction name="AccessRequestApproved" enabled="true"/>
+    <AuditAction name="AccessRequestDenied" enabled="true"/>
+
+    <!-- Retention -->
+    <RetentionDays>365</RetentionDays>
+  </AuditConfig>
+
+</sailpoint>

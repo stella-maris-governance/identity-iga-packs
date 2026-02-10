@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- SailPoint IdentityIQ Lifecycle Event Configuration -->
+<!-- Pack: sailpoint-iiq-config | Version: 1.0.0 -->
+<!-- Import: iiq console > import lifecycle-events.xml -->
+
+<sailpoint>
+
+  <!-- JOINER EVENT -->
+  <IdentityTrigger name="LCE-Joiner-Onboard"
+    type="Rule"
+    handler="rule:LCE-Joiner-Rule">
+    <Description>Trigger when new active identity has no linked accounts</Description>
+    <TriggerRule>
+      <Reference class="sailpoint.object.Rule" name="LCE-Joiner-Rule"/>
+    </TriggerRule>
+  </IdentityTrigger>
+
+  <Rule name="LCE-Joiner-Rule" type="IdentityTrigger">
+    <Description>Returns true when identity is Active and has zero application accounts</Description>
+    <Source>
+      import sailpoint.object.Identity;
+      Identity identity = context.getObjectByName(Identity.class, identityName);
+      if (identity == null) return false;
+      String status = (String) identity.getAttribute("status");
+      List links = identity.getLinks();
+      return "Active".equals(status) &amp;&amp; (links == null || links.isEmpty());
+    </Source>
+  </Rule>
+
+  <!-- MOVER EVENT -->
+  <IdentityTrigger name="LCE-Mover-DeptChange"
+    type="AttributeChange"
+    handler="workflow:LCE-Mover-Workflow">
+    <Description>Trigger on department or manager change</Description>
+    <AttributeChanges>
+      <AttributeChange attribute="department"/>
+      <AttributeChange attribute="manager"/>
+    </AttributeChanges>
+  </IdentityTrigger>
+
+  <!-- LEAVER EVENT -->
+  <IdentityTrigger name="LCE-Leaver-Offboard"
+    type="Rule"
+    handler="workflow:LCE-Leaver-Workflow">
+    <Description>Trigger when identity status becomes Inactive</Description>
+    <TriggerRule>
+      <Reference class="sailpoint.object.Rule" name="LCE-Leaver-Rule"/>
+    </TriggerRule>
+  </IdentityTrigger>
+
+  <Rule name="LCE-Leaver-Rule" type="IdentityTrigger">
+    <Description>Returns true when identity status is Inactive</Description>
+    <Source>
+      import sailpoint.object.Identity;
+      Identity identity = context.getObjectByName(Identity.class, identityName);
+      if (identity == null) return false;
+      String status = (String) identity.getAttribute("status");
+      return "Inactive".equals(status);
+    </Source>
+  </Rule>
+
+</sailpoint>

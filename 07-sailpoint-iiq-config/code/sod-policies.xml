@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- SailPoint IIQ SOD Policy Definitions -->
+<!-- Mirrors Pack 05 (SoD Matrix) Tier 3 business application conflicts -->
+
+<sailpoint>
+
+  <Policy name="SOD-FIN-001" type="SOD">
+    <Description>AP Create Invoice + AP Approve Payment — Critical: Block</Description>
+    <SODPolicy>
+      <LeftRole>
+        <Reference class="sailpoint.object.Bundle" name="AP-Create-Invoice"/>
+      </LeftRole>
+      <RightRole>
+        <Reference class="sailpoint.object.Bundle" name="AP-Approve-Payment"/>
+      </RightRole>
+      <Severity>Critical</Severity>
+      <Action>Block</Action>
+      <AlertEmail>security@stellamarisgovernance.com</AlertEmail>
+    </SODPolicy>
+  </Policy>
+
+  <Policy name="SOD-FIN-002" type="SOD">
+    <Description>Vendor Master Create + AP Approve Payment — Critical: Block</Description>
+    <SODPolicy>
+      <LeftRole>
+        <Reference class="sailpoint.object.Bundle" name="Vendor-Master-Create"/>
+      </LeftRole>
+      <RightRole>
+        <Reference class="sailpoint.object.Bundle" name="AP-Approve-Payment"/>
+      </RightRole>
+      <Severity>Critical</Severity>
+      <Action>Block</Action>
+    </SODPolicy>
+  </Policy>
+
+  <Policy name="SOD-HR-001" type="SOD">
+    <Description>HR Data Entry + Payroll Approve — High: Alert + Exception</Description>
+    <SODPolicy>
+      <LeftRole>
+        <Reference class="sailpoint.object.Bundle" name="HR-Data-Entry"/>
+      </LeftRole>
+      <RightRole>
+        <Reference class="sailpoint.object.Bundle" name="Payroll-Approve"/>
+      </RightRole>
+      <Severity>High</Severity>
+      <Action>Alert</Action>
+      <RequireException>true</RequireException>
+    </SODPolicy>
+  </Policy>
+
+  <Policy name="SOD-IT-001" type="SOD">
+    <Description>Change Requester + Change Approver — Medium: Alert</Description>
+    <SODPolicy>
+      <LeftRole>
+        <Reference class="sailpoint.object.Bundle" name="Change-Requester"/>
+      </LeftRole>
+      <RightRole>
+        <Reference class="sailpoint.object.Bundle" name="Change-Approver"/>
+      </RightRole>
+      <Severity>Medium</Severity>
+      <Action>Alert</Action>
+    </SODPolicy>
+  </Policy>
+
+</sailpoint>

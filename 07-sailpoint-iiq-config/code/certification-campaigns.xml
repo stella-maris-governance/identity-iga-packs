@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- SailPoint IIQ Certification Campaign Definitions -->
+
+<sailpoint>
+
+  <!-- MANAGER ACCESS REVIEW — Quarterly -->
+  <CertificationDefinition name="Cert-Manager-Quarterly"
+    type="Manager">
+    <Description>Quarterly manager certification of direct report access</Description>
+    <Owner>
+      <Reference class="sailpoint.object.Identity" name="spadmin"/>
+    </Owner>
+    <CertificationOwner type="Manager"/>
+    <Schedule>
+      <CronExpression>0 0 6 15 1,4,7,10 ?</CronExpression>
+      <!-- 06:00 UTC on 15th of Jan, Apr, Jul, Oct -->
+    </Schedule>
+    <Duration>14</Duration>
+    <AutoRevoke>true</AutoRevoke>
+    <RequireJustification>true</RequireJustification>
+    <EnableRecommendations>true</EnableRecommendations>
+  </CertificationDefinition>
+
+  <!-- ENTITLEMENT OWNER REVIEW — Quarterly -->
+  <CertificationDefinition name="Cert-EntitlementOwner-Quarterly"
+    type="DataOwner">
+    <Description>Quarterly entitlement owner review of high-risk access</Description>
+    <Owner>
+      <Reference class="sailpoint.object.Identity" name="spadmin"/>
+    </Owner>
+    <Schedule>
+      <CronExpression>0 0 6 1 2,5,8,11 ?</CronExpression>
+    </Schedule>
+    <Duration>14</Duration>
+    <AutoRevoke>true</AutoRevoke>
+    <RequireJustification>true</RequireJustification>
+    <EntitlementFilter>
+      <Filter operation="EQ" property="riskLevel" value="High"/>
+    </EntitlementFilter>
+  </CertificationDefinition>
+
+  <!-- SOD VIOLATION REVIEW — Monthly -->
+  <CertificationDefinition name="Cert-SOD-Monthly"
+    type="PolicyViolation">
+    <Description>Monthly review of all open SOD violations</Description>
+    <Owner>
+      <Reference class="sailpoint.object.Identity" name="spadmin"/>
+    </Owner>
+    <Schedule>
+      <CronExpression>0 0 6 1 * ?</CronExpression>
+    </Schedule>
+    <Duration>7</Duration>
+    <AutoRevoke>false</AutoRevoke>
+    <EscalationRule>Escalate to CISO after 7 days</EscalationRule>
+  </CertificationDefinition>
+
+  <!-- PRIVILEGED ACCESS REVIEW — Quarterly -->
+  <CertificationDefinition name="Cert-Privileged-Quarterly"
+    type="Focused">
+    <Description>Quarterly review of admin-level entitlements</Description>
+    <CertificationOwner type="SecurityTeam"/>
+    <Schedule>
+      <CronExpression>0 0 6 15 1,4,7,10 ?</CronExpression>
+    </Schedule>
+    <Duration>7</Duration>
+    <AutoRevoke>true</AutoRevoke>
+    <RequireJustification>true</RequireJustification>
+  </CertificationDefinition>
+
+</sailpoint>

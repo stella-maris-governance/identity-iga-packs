@@ -1,0 +1,40 @@
+graph TD
+    subgraph SOURCES["Identity Sources"]
+        HR["HR System -- Authoritative"]
+        AD["Active Directory"]
+        ENTRA["Entra ID"]
+        SAAS["SaaS Apps"]
+    end
+
+    subgraph IIQ["SailPoint IdentityIQ"]
+        AGG["Aggregation + Correlation"]
+        CUBE["Identity Cube"]
+        ROLES["Role Model"]
+        LCE["Lifecycle Events"]
+        CERT["Certifications"]
+        SOD["SOD Engine"]
+    end
+
+    subgraph OUTPUT["Governance Outputs"]
+        PROVISION["Auto-Provisioning"]
+        REVOKE["Auto-Revocation"]
+        ALERT["SOD Alerts"]
+        AUDIT["Audit Trail"]
+    end
+
+    HR --> AGG
+    AD --> AGG
+    ENTRA --> AGG
+    SAAS --> AGG
+
+    AGG --> CUBE
+    CUBE --> ROLES
+    CUBE --> LCE
+    CUBE --> CERT
+    CUBE --> SOD
+
+    LCE --> PROVISION
+    CERT --> REVOKE
+    SOD --> ALERT
+    PROVISION --> AUDIT
+    REVOKE --> AUDIT
