@@ -1,0 +1,37 @@
+graph TD
+    subgraph DEFINE["Define"]
+        MATRIX["Conflict Matrix: 12 pairs across 3 tiers"]
+        POLICY["Exception process + compensating controls"]
+    end
+
+    subgraph DETECT["Detect"]
+        KQL["KQL scan: active + eligible assignments"]
+        WEEKLY["Sentinel: weekly scheduled rule"]
+        ALERT["Alert on new violation"]
+    end
+
+    subgraph ENFORCE["Enforce"]
+        PIM["PIM approval checks conflict matrix"]
+        AR["Access reviews flag SoD conflicts"]
+        EXCEPT["Exception register with expiry"]
+    end
+
+    subgraph EVIDENCE["Evidence"]
+        SCAN["Weekly scan results"]
+        REG["Exception register"]
+        LOG["Log Analytics export"]
+        EVO["Expected vs Observed"]
+    end
+
+    MATRIX --> KQL
+    KQL --> WEEKLY
+    WEEKLY --> ALERT
+    ALERT --> EXCEPT
+
+    MATRIX --> PIM
+    MATRIX --> AR
+    POLICY --> EXCEPT
+
+    SCAN --> EVO
+    REG --> EVO
+    LOG --> EVO

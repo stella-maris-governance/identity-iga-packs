@@ -1,0 +1,82 @@
+{
+  "_metadata": {
+    "pack": "sod-matrix",
+    "version": "1.0.0",
+    "author": "Stella Maris Governance",
+    "description": "Machine-readable SoD conflict definitions. Used by KQL detection query."
+  },
+  "conflicts": [
+    {
+      "id": "SOD-001", "tier": 1, "risk": "Critical",
+      "roleA": {"name": "Global Administrator", "templateId": "62e90394-69f5-4237-9190-012177145e10"},
+      "roleB": {"name": "Security Administrator", "templateId": "194ae4cb-b126-40b2-bd5b-6091b380977d"},
+      "rationale": "GA can modify security configs that SecAdmin monitors — self-oversight violation"
+    },
+    {
+      "id": "SOD-002", "tier": 1, "risk": "Critical",
+      "roleA": {"name": "Global Administrator", "templateId": "62e90394-69f5-4237-9190-012177145e10"},
+      "roleB": {"name": "Compliance Administrator", "templateId": "17315797-102d-40b4-93e0-432062caca18"},
+      "rationale": "GA can alter compliance configurations they are responsible for auditing"
+    },
+    {
+      "id": "SOD-003", "tier": 1, "risk": "High",
+      "roleA": {"name": "Exchange Administrator", "templateId": "29232cdf-9323-42fd-ade2-1d097af3e4de"},
+      "roleB": {"name": "Security Administrator", "templateId": "194ae4cb-b126-40b2-bd5b-6091b380977d"},
+      "rationale": "Exchange admin could create mail rules to exfiltrate data that security should detect"
+    },
+    {
+      "id": "SOD-004", "tier": 1, "risk": "Critical",
+      "roleA": {"name": "User Administrator", "templateId": "fe930be7-5e62-47db-91af-98c3a49a38b1"},
+      "roleB": {"name": "Privileged Role Administrator", "templateId": "e8611ab8-c189-46e8-94e1-60213ab1f814"},
+      "rationale": "Could create users AND assign them privileged roles — privilege escalation path"
+    },
+    {
+      "id": "SOD-005", "tier": 2, "risk": "High",
+      "roleA": {"name": "Global Administrator", "templateId": "62e90394-69f5-4237-9190-012177145e10"},
+      "roleB": {"name": "Billing Administrator", "templateId": "b0f54661-2d74-4c50-afa3-1ec803f12efe"},
+      "rationale": "Could authorize and pay for services — financial control bypass"
+    },
+    {
+      "id": "SOD-006", "tier": 2, "risk": "High",
+      "roleA": {"name": "Application Administrator", "templateId": "9b895d92-2cd3-44c7-9d02-a6ac2d5ea5c3"},
+      "roleB": {"name": "Cloud Application Administrator", "templateId": "158c047a-c907-4556-b7ef-446551a6b5f7"},
+      "rationale": "Redundant high-privilege app control — blast radius concern"
+    },
+    {
+      "id": "SOD-007", "tier": 2, "risk": "Medium",
+      "roleA": {"name": "Exchange Administrator", "templateId": "29232cdf-9323-42fd-ade2-1d097af3e4de"},
+      "roleB": {"name": "SharePoint Administrator", "templateId": "f28a1f50-f6e7-4571-818b-6a12f2af6b6c"},
+      "rationale": "Combined control of email + file sharing — data exfiltration risk"
+    },
+    {
+      "id": "SOD-008", "tier": 2, "risk": "Medium",
+      "roleA": {"name": "Intune Administrator", "templateId": "3a2c62db-5318-420d-8d74-23affee5d9d5"},
+      "roleB": {"name": "Conditional Access Administrator", "templateId": "b1be1c3e-b65d-4f19-8427-f6fa0d97feb9"},
+      "rationale": "Could weaken device compliance AND weaken CA policies simultaneously"
+    },
+    {
+      "id": "SOD-009", "tier": 3, "risk": "Critical", "system": "ERP/Finance",
+      "roleA": {"name": "AP Clerk", "type": "application-role"},
+      "roleB": {"name": "AP Approver", "type": "application-role"},
+      "rationale": "Fraudulent payment — SOX core control"
+    },
+    {
+      "id": "SOD-010", "tier": 3, "risk": "Critical", "system": "ERP/Finance",
+      "roleA": {"name": "Vendor Master", "type": "application-role"},
+      "roleB": {"name": "AP Approver", "type": "application-role"},
+      "rationale": "Ghost vendor fraud — SOX core control"
+    },
+    {
+      "id": "SOD-011", "tier": 3, "risk": "High", "system": "HR",
+      "roleA": {"name": "HR Data Entry", "type": "application-role"},
+      "roleB": {"name": "Payroll Approver", "type": "application-role"},
+      "rationale": "Payroll fraud — create ghost employees"
+    },
+    {
+      "id": "SOD-012", "tier": 3, "risk": "Medium", "system": "ITSM",
+      "roleA": {"name": "Change Requester", "type": "application-role"},
+      "roleB": {"name": "Change Approver", "type": "application-role"},
+      "rationale": "Self-approval of changes — ITIL violation"
+    }
+  ]
+}
