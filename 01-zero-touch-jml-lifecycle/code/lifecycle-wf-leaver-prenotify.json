@@ -1,0 +1,34 @@
+{
+  "_metadata": {
+    "pack": "zero-touch-jml-lifecycle",
+    "version": "1.0.0",
+    "description": "Pre-departure notification — fires 7 days before leave date."
+  },
+  "displayName": "JML-Leaver-PreNotify",
+  "description": "Notify manager 7 days before employee departure for knowledge transfer preparation",
+  "isEnabled": true,
+  "isSchedulingEnabled": true,
+  "executionConditions": {
+    "trigger": {
+      "@odata.type": "#microsoft.graph.identityGovernance.timeBasedAttributeTrigger",
+      "timeBasedAttribute": "employeeLeaveDateTime",
+      "offsetInDays": -7
+    },
+    "scope": {
+      "@odata.type": "#microsoft.graph.identityGovernance.ruleBasedSubjectSet",
+      "rule": "department ne null"
+    }
+  },
+  "tasks": [
+    {
+      "continueOnError": true,
+      "displayName": "Send pre-departure notification to manager",
+      "isEnabled": true,
+      "taskDefinitionId": "70b29d51-b59a-4773-9571-726b9f6b3f37",
+      "arguments": [
+        {"name": "customSubject", "value": "Upcoming departure — 7 days notice"},
+        {"name": "customBody", "value": "This employee's last day is in 7 days. Please ensure knowledge transfer is complete, shared files are documented, and any delegated access is reassigned. The account will be automatically disabled on the departure date."}
+      ]
+    }
+  ]
+}

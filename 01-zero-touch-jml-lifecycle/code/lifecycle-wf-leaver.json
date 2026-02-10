@@ -1,0 +1,64 @@
+{
+  "_metadata": {
+    "pack": "zero-touch-jml-lifecycle",
+    "version": "1.0.0",
+    "author": "Stella Maris Governance",
+    "description": "Entra ID Lifecycle Workflow — Leaver offboarding."
+  },
+  "displayName": "JML-Leaver-Offboard",
+  "description": "Offboard departing employees: disable account, revoke sessions, remove licenses, notify manager and IT",
+  "isEnabled": true,
+  "isSchedulingEnabled": true,
+  "executionConditions": {
+    "trigger": {
+      "@odata.type": "#microsoft.graph.identityGovernance.timeBasedAttributeTrigger",
+      "timeBasedAttribute": "employeeLeaveDateTime",
+      "offsetInDays": 0
+    },
+    "scope": {
+      "@odata.type": "#microsoft.graph.identityGovernance.ruleBasedSubjectSet",
+      "rule": "department ne null"
+    }
+  },
+  "tasks": [
+    {
+      "continueOnError": false,
+      "displayName": "Disable user account",
+      "isEnabled": true,
+      "taskDefinitionId": "1dfdfcc7-52fa-4c2e-bf3a-e3919cc12950",
+      "arguments": []
+    },
+    {
+      "continueOnError": false,
+      "displayName": "Revoke all sign-in sessions",
+      "isEnabled": true,
+      "taskDefinitionId": "f71f3b74-eb65-42e8-a984-1d14ef23a670",
+      "arguments": []
+    },
+    {
+      "continueOnError": true,
+      "displayName": "Remove all license assignments",
+      "isEnabled": true,
+      "taskDefinitionId": "8fa97d28-3571-4108-ac1c-5653b3d82e1f",
+      "arguments": []
+    },
+    {
+      "continueOnError": true,
+      "displayName": "Remove from all groups",
+      "isEnabled": true,
+      "taskDefinitionId": "1953a66c-751c-45e5-8bfe-01462c70da3c",
+      "arguments": []
+    },
+    {
+      "continueOnError": true,
+      "displayName": "Notify manager — departure processed",
+      "isEnabled": true,
+      "taskDefinitionId": "70b29d51-b59a-4773-9571-726b9f6b3f37",
+      "arguments": [
+        {"name": "cc", "value": "{{IT_OFFBOARDING_EMAIL}}"},
+        {"name": "customSubject", "value": "Employee departure processed — account disabled"},
+        {"name": "customBody", "value": "This employee's account has been disabled and all access revoked via JML lifecycle automation. Mailbox and OneDrive data will be retained for 90 days per data retention policy. Contact IT if you need data export."}
+      ]
+    }
+  ]
+}

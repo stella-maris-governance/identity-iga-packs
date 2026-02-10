@@ -1,0 +1,25 @@
+// JML Lifecycle Audit Query
+// Shows all lifecycle workflow executions and dynamic group changes
+// Deploy: run in Log Analytics or save as Sentinel workbook query
+
+// Lifecycle workflow executions
+AuditLogs
+| where TimeGenerated > ago(30d)
+| where Category == "EntitlementManagement" or Category == "UserManagement"
+| where OperationName has "lifecycle" or OperationName has "workflow"
+| extend User = tostring(TargetResources[0].userPrincipalName)
+| extend WorkflowName = tostring(AdditionalDetails[0].value)
+| project TimeGenerated, OperationName, User, WorkflowName, Result
+| sort by TimeGenerated desc
+
+// Dynamic group membership changes
+// Run separately
+// AuditLogs
+// | where TimeGenerated > ago(30d)
+// | where Category == "GroupManagement"
+// | where OperationName == "Add member to group" or OperationName == "Remove member from group"
+// | extend Group = tostring(TargetResources[0].displayName)
+// | extend User = tostring(TargetResources[1].userPrincipalName)
+// | where Group startswith "grp-"
+// | project TimeGenerated, OperationName, Group, User
+// | sort by TimeGenerated desc

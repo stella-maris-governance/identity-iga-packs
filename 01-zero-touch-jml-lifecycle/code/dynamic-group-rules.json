@@ -1,0 +1,64 @@
+{
+  "_metadata": {
+    "pack": "zero-touch-jml-lifecycle",
+    "version": "1.0.0",
+    "description": "Dynamic security group membership rules. Create groups in Entra with these rules."
+  },
+  "groups": [
+    {
+      "displayName": "grp-dept-engineering",
+      "membershipRule": "(user.department -eq \"Engineering\")",
+      "description": "All Engineering department employees"
+    },
+    {
+      "displayName": "grp-dept-finance",
+      "membershipRule": "(user.department -eq \"Finance\")",
+      "description": "All Finance department employees"
+    },
+    {
+      "displayName": "grp-dept-hr",
+      "membershipRule": "(user.department -eq \"Human Resources\")",
+      "description": "All HR department employees"
+    },
+    {
+      "displayName": "grp-dept-sales",
+      "membershipRule": "(user.department -eq \"Sales\")",
+      "description": "All Sales department employees"
+    },
+    {
+      "displayName": "grp-dept-operations",
+      "membershipRule": "(user.department -eq \"Operations\")",
+      "description": "All Operations department employees"
+    },
+    {
+      "displayName": "grp-jobtitle-manager",
+      "membershipRule": "(user.jobTitle -contains \"Manager\")",
+      "description": "All employees with Manager in job title"
+    },
+    {
+      "displayName": "grp-license-e5",
+      "membershipRule": "(user.department -in [\"Engineering\", \"Finance\", \"Human Resources\", \"Sales\"]) -and (user.accountEnabled -eq true)",
+      "description": "M365 E5 license assignment — knowledge workers"
+    },
+    {
+      "displayName": "grp-license-f3",
+      "membershipRule": "(user.department -eq \"Operations\") -and (user.accountEnabled -eq true)",
+      "description": "M365 F3 license assignment — frontline workers"
+    },
+    {
+      "displayName": "grp-app-salesforce",
+      "membershipRule": "(user.department -eq \"Sales\") -and (user.accountEnabled -eq true)",
+      "description": "Salesforce SSO access"
+    },
+    {
+      "displayName": "grp-app-jira",
+      "membershipRule": "(user.department -eq \"Engineering\") -and (user.accountEnabled -eq true)",
+      "description": "Jira SSO access"
+    },
+    {
+      "displayName": "grp-all-employees",
+      "membershipRule": "(user.accountEnabled -eq true) -and (user.userType -eq \"Member\")",
+      "description": "All active employees — used for baseline policies"
+    }
+  ]
+}

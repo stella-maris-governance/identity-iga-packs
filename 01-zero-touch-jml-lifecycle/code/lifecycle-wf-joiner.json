@@ -1,0 +1,64 @@
+{
+  "_metadata": {
+    "pack": "zero-touch-jml-lifecycle",
+    "version": "1.0.0",
+    "author": "Stella Maris Governance",
+    "description": "Entra ID Lifecycle Workflow — Joiner onboarding. Deploy via Graph API or Entra portal."
+  },
+  "displayName": "JML-Joiner-Onboard",
+  "description": "Onboard new employees on hire date: enable account, generate TAP, send welcome email, notify manager",
+  "isEnabled": true,
+  "isSchedulingEnabled": true,
+  "executionConditions": {
+    "trigger": {
+      "@odata.type": "#microsoft.graph.identityGovernance.timeBasedAttributeTrigger",
+      "timeBasedAttribute": "employeeHireDate",
+      "offsetInDays": 0
+    },
+    "scope": {
+      "@odata.type": "#microsoft.graph.identityGovernance.ruleBasedSubjectSet",
+      "rule": "department ne null"
+    }
+  },
+  "tasks": [
+    {
+      "continueOnError": false,
+      "displayName": "Enable user account",
+      "isEnabled": true,
+      "taskDefinitionId": "6fc52c9d-398b-4305-9763-15f42c1676fc",
+      "arguments": []
+    },
+    {
+      "continueOnError": false,
+      "displayName": "Generate Temporary Access Pass",
+      "isEnabled": true,
+      "taskDefinitionId": "1b555e50-7f65-41d5-b514-5894a026d10d",
+      "arguments": [
+        {"name": "tapLifetimeMinutes", "value": "480"},
+        {"name": "tapIsUsableOnce", "value": "true"}
+      ]
+    },
+    {
+      "continueOnError": true,
+      "displayName": "Send welcome email with TAP",
+      "isEnabled": true,
+      "taskDefinitionId": "70b29d51-b59a-4773-9571-726b9f6b3f37",
+      "arguments": [
+        {"name": "cc", "value": "{{MANAGER_EMAIL}}"},
+        {"name": "customSubject", "value": "Welcome to the team — your first-day access is ready"},
+        {"name": "customBody", "value": "Your account is active. Use the Temporary Access Pass below to set up your MFA methods on your first day. Your manager has been notified."}
+      ]
+    },
+    {
+      "continueOnError": true,
+      "displayName": "Send manager notification",
+      "isEnabled": true,
+      "taskDefinitionId": "70b29d51-b59a-4773-9571-726b9f6b3f37",
+      "arguments": [
+        {"name": "cc", "value": "{{IT_ONBOARDING_EMAIL}}"},
+        {"name": "customSubject", "value": "New hire onboarded — account active"},
+        {"name": "customBody", "value": "Your new team member's account has been enabled and access provisioned automatically via JML lifecycle automation. No action required unless additional access is needed."}
+      ]
+    }
+  ]
+}

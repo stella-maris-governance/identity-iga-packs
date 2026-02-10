@@ -1,0 +1,48 @@
+graph TD
+    subgraph HR["HR Source of Truth"]
+        HR_SYS["HR System"]
+        ATTRS["department / jobTitle / startDate / endDate / manager"]
+    end
+
+    subgraph ENTRA["Entra ID"]
+        SYNC["Inbound Provisioning"]
+        USER["User Object"]
+        DG["Dynamic Security Groups"]
+    end
+
+    subgraph WORKFLOWS["Lifecycle Workflows"]
+        JOIN["Joiner: enable, TAP, welcome email"]
+        LEAVE["Leaver: disable, revoke, remove"]
+        PRE["Pre-notify: 7-day manager alert"]
+    end
+
+    subgraph ACCESS["Access Delivery"]
+        LICENSE["License Assignment via group"]
+        APPS["App Access via group SSO"]
+        CA["CA Policies via group scope"]
+    end
+
+    subgraph EVIDENCE["Audit Evidence"]
+        WF_LOG["Workflow Execution Log"]
+        DG_LOG["Dynamic Group Changes"]
+        PROV_LOG["Provisioning Log"]
+        EVO["Expected vs Observed"]
+    end
+
+    HR_SYS --> SYNC
+    ATTRS --> SYNC
+    SYNC --> USER
+    USER --> DG
+    USER --> WORKFLOWS
+
+    JOIN --> USER
+    LEAVE --> USER
+    PRE --> USER
+
+    DG --> LICENSE
+    DG --> APPS
+    DG --> CA
+
+    WF_LOG --> EVO
+    DG_LOG --> EVO
+    PROV_LOG --> EVO
