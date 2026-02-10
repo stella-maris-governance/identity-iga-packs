@@ -1,0 +1,27 @@
+{
+  "displayName": "CA003-AllUsers-RequireCompliantDevice-CorpApps",
+  "state": "enabled",
+  "conditions": {
+    "users": {
+      "includeUsers": ["All"],
+      "excludeGroups": ["{{GROUP_ID_grp-ca-breakglass-exclude}}"]
+    },
+    "applications": {
+      "includeApplications": [
+        "{{APP_ID_Office365}}",
+        "{{APP_ID_ExchangeOnline}}",
+        "{{APP_ID_SharePointOnline}}",
+        "{{APP_ID_MicrosoftTeams}}"
+      ]
+    },
+    "clientAppTypes": ["browser", "mobileAppsAndDesktopClients"]
+  },
+  "grantControls": {
+    "operator": "OR",
+    "builtInControls": ["compliantDevice", "domainJoinedDevice"]
+  },
+  "_metadata": {
+    "nist": ["AC-17"],
+    "notes": "Requires Intune compliant OR hybrid Azure AD joined for corporate apps."
+  }
+}

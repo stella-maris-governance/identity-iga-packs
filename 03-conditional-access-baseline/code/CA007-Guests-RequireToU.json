@@ -1,0 +1,19 @@
+{
+  "displayName": "CA007-Guests-RequireToU-AllPlatforms",
+  "state": "enabled",
+  "conditions": {
+    "users": { "includeUsers": ["GuestsOrExternalUsers"] },
+    "applications": { "includeApplications": ["All"] },
+    "clientAppTypes": ["browser", "mobileAppsAndDesktopClients"]
+  },
+  "grantControls": {
+    "operator": "AND",
+    "builtInControls": ["mfa"],
+    "termsOfUse": ["{{TERMS_OF_USE_ID}}"]
+  },
+  "_metadata": {
+    "nist": ["IA-8"],
+    "cmmc": ["AC.L2-3.1.22"],
+    "notes": "Guests must accept ToU AND complete MFA. Replace {{TERMS_OF_USE_ID}}."
+  }
+}

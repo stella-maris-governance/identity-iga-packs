@@ -1,0 +1,60 @@
+graph TD
+    subgraph SIGNALS["User Context Signals"]
+        USER["User / Group"]
+        LOCATION["Named Location"]
+        DEVICE["Device State"]
+        RISK["Risk Level"]
+    end
+
+    subgraph POLICIES["CA Policy Baseline - 10 Policies"]
+        CA001["CA001 Require MFA All Users"]
+        CA002["CA002 Block Legacy Auth"]
+        CA003["CA003 Compliant Device"]
+        CA004["CA004 Block High-Risk"]
+        CA005["CA005 MFA Admins"]
+        CA006["CA006 Session Timeout"]
+        CA007["CA007 Guest ToU"]
+        CA008["CA008 Block Countries"]
+        CA009["CA009 App Protection"]
+        CA010["CA010 Phishing-Resistant"]
+    end
+
+    subgraph CONTROLS["Grant and Session Controls"]
+        GRANT_MFA["Require MFA"]
+        GRANT_DEVICE["Require Compliant Device"]
+        GRANT_TOU["Accept Terms of Use"]
+        SESSION["Sign-in Frequency 4hr"]
+        BLOCK["Block Access"]
+    end
+
+    subgraph EVIDENCE["Audit Evidence"]
+        SIGNIN["Sign-in Logs"]
+        INSIGHTS["CA Insights Workbook"]
+        LOGANALYTICS["Log Analytics"]
+        EVO["Expected vs Observed"]
+    end
+
+    USER --> POLICIES
+    LOCATION --> POLICIES
+    DEVICE --> POLICIES
+    RISK --> POLICIES
+
+    CA001 --> GRANT_MFA
+    CA002 --> BLOCK
+    CA003 --> GRANT_DEVICE
+    CA004 --> BLOCK
+    CA005 --> GRANT_MFA
+    CA006 --> SESSION
+    CA007 --> GRANT_TOU
+    CA008 --> BLOCK
+    CA009 --> GRANT_DEVICE
+    CA010 --> GRANT_MFA
+
+    GRANT_MFA --> SIGNIN
+    GRANT_DEVICE --> SIGNIN
+    BLOCK --> SIGNIN
+    SESSION --> SIGNIN
+    GRANT_TOU --> SIGNIN
+    SIGNIN --> INSIGHTS
+    INSIGHTS --> LOGANALYTICS
+    LOGANALYTICS --> EVO

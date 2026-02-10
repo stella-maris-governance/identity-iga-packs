@@ -1,0 +1,27 @@
+{
+  "displayName": "CA006-AllUsers-SessionTimeout-Unmanaged",
+  "state": "enabled",
+  "conditions": {
+    "users": {
+      "includeUsers": ["All"],
+      "excludeGroups": ["{{GROUP_ID_grp-ca-breakglass-exclude}}"]
+    },
+    "applications": { "includeApplications": ["All"] },
+    "clientAppTypes": ["browser", "mobileAppsAndDesktopClients"],
+    "devices": {
+      "deviceFilter": {
+        "mode": "include",
+        "rule": "device.isCompliant -ne True -and device.trustType -ne \"ServerAD\""
+      }
+    }
+  },
+  "sessionControls": {
+    "signInFrequency": { "value": 4, "type": "hours", "isEnabled": true },
+    "persistentBrowser": { "mode": "never", "isEnabled": true }
+  },
+  "_metadata": {
+    "nist": ["AC-17"],
+    "cmmc": ["AC.L2-3.1.12"],
+    "notes": "4-hour re-auth + no persistent browser for unmanaged devices."
+  }
+}

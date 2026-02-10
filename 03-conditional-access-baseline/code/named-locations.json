@@ -1,0 +1,18 @@
+{
+  "trustedLocations": [
+    {
+      "displayName": "Corporate Office Primary",
+      "isTrusted": true,
+      "ipRanges": [
+        {"cidrAddress": "203.0.113.0/24", "_note": "SAMPLE — Replace with your corporate IP range"},
+        {"cidrAddress": "198.51.100.0/24", "_note": "SAMPLE — Replace with your VPN egress range"}
+      ]
+    }
+  ],
+  "blockedCountries": {
+    "displayName": "Blocked Countries",
+    "countriesAndRegions": ["RU", "CN", "KP", "IR"],
+    "includeUnknownCountriesAndRegions": false,
+    "_note": "Adjust country list per your organization risk assessment."
+  }
+}

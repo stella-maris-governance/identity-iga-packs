@@ -1,0 +1,21 @@
+{
+  "displayName": "CA002-AllUsers-BlockLegacyAuth-AllPlatforms",
+  "state": "enabled",
+  "conditions": {
+    "users": {
+      "includeUsers": ["All"],
+      "excludeGroups": ["{{GROUP_ID_grp-ca-breakglass-exclude}}"]
+    },
+    "applications": { "includeApplications": ["All"] },
+    "clientAppTypes": ["exchangeActiveSync", "other"]
+  },
+  "grantControls": {
+    "operator": "OR",
+    "builtInControls": ["block"]
+  },
+  "_metadata": {
+    "nist": ["IA-5"],
+    "cis": ["1.1.6"],
+    "notes": "Blocks all legacy authentication protocols."
+  }
+}
