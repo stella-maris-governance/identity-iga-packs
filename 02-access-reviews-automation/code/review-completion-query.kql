@@ -1,0 +1,20 @@
+// Access Review Completion and Revocation Report
+// Run in Log Analytics to generate audit evidence
+
+// Review decisions summary
+AuditLogs
+| where TimeGenerated > ago(90d)
+| where Category == "EntitlementManagement" or Category == "AccessReviews"
+| where OperationName has "review"
+| extend ReviewName = tostring(AdditionalDetails[0].value)
+| extend Decision = tostring(AdditionalDetails[1].value)
+| extend Reviewer = tostring(InitiatedBy.user.userPrincipalName)
+| summarize
+    TotalDecisions = count(),
+    Approved = countif(Decision == "Approve"),
+    Denied = countif(Decision == "Deny"),
+    AutoRevoked = countif(Decision == "AutoRevoked" or Decision == "NotReviewed")
+    by ReviewName
+| extend CompletionRate = round(100.0 * (Approved + Denied) / TotalDecisions, 1)
+| project ReviewName, TotalDecisions, Approved, Denied, AutoRevoked, CompletionRate
+| sort by ReviewName asc

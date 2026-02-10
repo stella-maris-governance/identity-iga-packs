@@ -1,0 +1,34 @@
+{
+  "_metadata": {
+    "pack": "access-reviews-automation",
+    "version": "1.0.0",
+    "description": "Entra Access Review — Guest/external user monthly review."
+  },
+  "displayName": "AR-GUEST-Monthly",
+  "descriptionForAdmins": "Monthly review of all guest and external users",
+  "descriptionForReviewers": "Review each guest user you sponsored. Approve if collaboration is ongoing. Deny to disable their access. Non-response will auto-revoke in 7 days.",
+  "scope": {
+    "query": "/users?$filter=userType eq 'Guest'",
+    "queryType": "MicrosoftGraph"
+  },
+  "reviewers": [
+    {"query": "./sponsor", "queryType": "MicrosoftGraph", "_note": "Falls back to inviter if sponsor not set"}
+  ],
+  "settings": {
+    "mailNotificationsEnabled": true,
+    "reminderNotificationsEnabled": true,
+    "justificationRequiredOnApproval": true,
+    "defaultDecisionEnabled": true,
+    "defaultDecision": "Deny",
+    "instanceDurationInDays": 7,
+    "autoApplyDecisionsEnabled": true,
+    "recommendationsEnabled": true,
+    "recommendationInsightSettings": [
+      {"@odata.type": "#microsoft.graph.userLastSignInRecommendationInsightSetting", "recommendationLookBackDuration": "P14D", "signInScope": "tenant"}
+    ],
+    "recurrence": {
+      "pattern": {"type": "absoluteMonthly", "interval": 1, "dayOfMonth": 1},
+      "range": {"type": "noEnd", "startDate": "2026-01-01"}
+    }
+  }
+}

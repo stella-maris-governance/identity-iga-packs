@@ -1,0 +1,35 @@
+{
+  "_metadata": {
+    "pack": "access-reviews-automation",
+    "version": "1.0.0",
+    "author": "Stella Maris Governance",
+    "description": "Entra Access Review — Group membership quarterly review. Deploy via Graph API."
+  },
+  "displayName": "AR-GRP-Quarterly",
+  "descriptionForAdmins": "Quarterly review of all department and application security group memberships",
+  "descriptionForReviewers": "Please review each member of this group. Approve if the user still needs access for their current role. Deny if access is no longer needed.",
+  "scope": {
+    "query": "/groups?$filter=(displayName+startsWith('grp-dept')+or+displayName+startsWith('grp-app'))",
+    "queryType": "MicrosoftGraph"
+  },
+  "reviewers": [
+    {"query": "./owners", "queryType": "MicrosoftGraph", "queryRoot": null}
+  ],
+  "settings": {
+    "mailNotificationsEnabled": true,
+    "reminderNotificationsEnabled": true,
+    "justificationRequiredOnApproval": true,
+    "defaultDecisionEnabled": true,
+    "defaultDecision": "Deny",
+    "instanceDurationInDays": 14,
+    "autoApplyDecisionsEnabled": true,
+    "recommendationsEnabled": true,
+    "recommendationInsightSettings": [
+      {"@odata.type": "#microsoft.graph.userLastSignInRecommendationInsightSetting", "recommendationLookBackDuration": "P30D", "signInScope": "tenant"}
+    ],
+    "recurrence": {
+      "pattern": {"type": "absoluteMonthly", "interval": 3, "dayOfMonth": 15},
+      "range": {"type": "noEnd", "startDate": "2026-01-15"}
+    }
+  }
+}

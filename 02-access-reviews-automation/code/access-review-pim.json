@@ -1,0 +1,31 @@
+{
+  "_metadata": {
+    "pack": "access-reviews-automation",
+    "version": "1.0.0",
+    "description": "Entra Access Review — PIM eligible role assignment quarterly review."
+  },
+  "displayName": "AR-PIM-Quarterly",
+  "descriptionForAdmins": "Quarterly review of all PIM eligible admin role assignments",
+  "descriptionForReviewers": "Review each user with an eligible admin role. Approve if the user still requires this privileged access. Deny to remove their eligibility.",
+  "scope": {
+    "query": "/roleManagement/directory/roleAssignmentScheduleInstances?$filter=assignmentType eq 'Eligible'",
+    "queryType": "MicrosoftGraph"
+  },
+  "reviewers": [
+    {"query": "/users/{{SECURITY_ADMIN_ID}}", "queryType": "MicrosoftGraph", "_note": "Replace with Security Administrator user ID"}
+  ],
+  "settings": {
+    "mailNotificationsEnabled": true,
+    "reminderNotificationsEnabled": true,
+    "justificationRequiredOnApproval": true,
+    "defaultDecisionEnabled": true,
+    "defaultDecision": "Deny",
+    "instanceDurationInDays": 14,
+    "autoApplyDecisionsEnabled": true,
+    "recommendationsEnabled": true,
+    "recurrence": {
+      "pattern": {"type": "absoluteMonthly", "interval": 3, "dayOfMonth": 15},
+      "range": {"type": "noEnd", "startDate": "2026-01-15"}
+    }
+  }
+}

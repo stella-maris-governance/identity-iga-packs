@@ -1,0 +1,32 @@
+{
+  "_metadata": {
+    "pack": "access-reviews-automation",
+    "version": "1.0.0",
+    "description": "Entra Access Review — Application assignment quarterly review."
+  },
+  "displayName": "AR-APP-Quarterly",
+  "descriptionForAdmins": "Quarterly review of enterprise application user assignments",
+  "descriptionForReviewers": "Review each user assigned to this application. Approve if they actively use this app for their role. Deny if access is no longer needed.",
+  "scope": {
+    "query": "/servicePrincipals/{{APP_OBJECT_ID}}/appRoleAssignedTo",
+    "queryType": "MicrosoftGraph",
+    "_note": "Create one review per app or use multi-resource review. Replace APP_OBJECT_ID."
+  },
+  "reviewers": [
+    {"query": "./owners", "queryType": "MicrosoftGraph"}
+  ],
+  "settings": {
+    "mailNotificationsEnabled": true,
+    "reminderNotificationsEnabled": true,
+    "justificationRequiredOnApproval": true,
+    "defaultDecisionEnabled": true,
+    "defaultDecision": "Deny",
+    "instanceDurationInDays": 14,
+    "autoApplyDecisionsEnabled": true,
+    "recommendationsEnabled": true,
+    "recurrence": {
+      "pattern": {"type": "absoluteMonthly", "interval": 3, "dayOfMonth": 15},
+      "range": {"type": "noEnd", "startDate": "2026-01-15"}
+    }
+  }
+}

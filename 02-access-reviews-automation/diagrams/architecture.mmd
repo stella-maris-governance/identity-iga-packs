@@ -1,0 +1,47 @@
+graph TD
+    subgraph SCHEDULE["Scheduled Reviews"]
+        GRP["AR-GRP-Quarterly: Group memberships"]
+        APP["AR-APP-Quarterly: App assignments"]
+        PIM["AR-PIM-Quarterly: PIM eligible roles"]
+        GUEST["AR-GUEST-Monthly: Guest users"]
+    end
+
+    subgraph REVIEW["Review Process"]
+        NOTIFY["Reviewer notified"]
+        DECIDE["Approve / Deny / Don't know"]
+        JUSTIFY["Justification captured"]
+        TIMEOUT["Non-response timeout"]
+    end
+
+    subgraph ACTION["Auto-Actions"]
+        KEEP["Access retained"]
+        REVOKE["Access revoked"]
+        AUTO["Auto-revoke on non-response"]
+    end
+
+    subgraph EVIDENCE["Audit Evidence"]
+        LOG["Decision Log"]
+        EXPORT["CSV Export"]
+        ANALYTICS["Log Analytics"]
+        EVO["Expected vs Observed"]
+    end
+
+    GRP --> NOTIFY
+    APP --> NOTIFY
+    PIM --> NOTIFY
+    GUEST --> NOTIFY
+
+    NOTIFY --> DECIDE
+    NOTIFY --> TIMEOUT
+    DECIDE --> JUSTIFY
+
+    JUSTIFY -->|Approve| KEEP
+    JUSTIFY -->|Deny| REVOKE
+    TIMEOUT --> AUTO
+
+    KEEP --> LOG
+    REVOKE --> LOG
+    AUTO --> LOG
+    LOG --> EXPORT
+    LOG --> ANALYTICS
+    ANALYTICS --> EVO
