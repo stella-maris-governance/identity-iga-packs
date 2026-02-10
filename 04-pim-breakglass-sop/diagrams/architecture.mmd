@@ -1,0 +1,48 @@
+graph TD
+    subgraph PIM["PIM Configuration"]
+        ELIGIBLE["Eligible Assignments Only"]
+        SETTINGS["Role Settings: Max duration / MFA / Justification / Approval"]
+        NOTIFY["Notifications on every activation"]
+    end
+
+    subgraph ACTIVATION["JIT Activation Flow"]
+        REQ["User requests activation"]
+        MFA["MFA verified"]
+        JUST["Justification provided"]
+        APPR["Approval granted -- Global Admin only"]
+        ACTIVE["Time-bound active role"]
+    end
+
+    subgraph BREAKGLASS["Break-Glass Emergency Access"]
+        BG1["bg-admin-01: Password / Location A"]
+        BG2["bg-admin-02: FIDO2 / Location B"]
+        EXCLUDE["Excluded from ALL CA policies"]
+        ALERT["Sign-in alert under 90 seconds"]
+        TEST["Monthly test procedure"]
+    end
+
+    subgraph EVIDENCE["Audit Evidence"]
+        PIM_LOG["PIM Activation Log"]
+        BG_LOG["Break-Glass Alert Log"]
+        TEST_LOG["Monthly Test Evidence"]
+        EVO["Expected vs Observed"]
+    end
+
+    ELIGIBLE --> REQ
+    SETTINGS --> ELIGIBLE
+    REQ --> MFA
+    MFA --> JUST
+    JUST --> APPR
+    APPR --> ACTIVE
+    ACTIVE --> PIM_LOG
+    NOTIFY --> PIM_LOG
+
+    BG1 --> EXCLUDE
+    BG2 --> EXCLUDE
+    EXCLUDE --> ALERT
+    ALERT --> BG_LOG
+    TEST --> TEST_LOG
+
+    PIM_LOG --> EVO
+    BG_LOG --> EVO
+    TEST_LOG --> EVO

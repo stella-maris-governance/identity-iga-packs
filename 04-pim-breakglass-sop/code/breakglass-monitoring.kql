@@ -1,0 +1,29 @@
+// Break-Glass Sign-in Monitor — Sentinel NRT Rule
+// Frequency: Near-Real-Time (~1 min) | Severity: HIGH
+// ANY sign-in from break-glass = investigate immediately
+// Replace tenant name with your actual tenant
+
+SigninLogs
+| where TimeGenerated > ago(5m)
+| where UserPrincipalName in (
+    "bg-admin-01@{{TENANT}}.onmicrosoft.com",
+    "bg-admin-02@{{TENANT}}.onmicrosoft.com"
+)
+| extend City = tostring(parse_json(LocationDetails).city)
+| extend Country = tostring(parse_json(LocationDetails).countryOrRegion)
+| extend Browser = tostring(parse_json(DeviceDetail).browser)
+| project
+    TimeGenerated,
+    UserPrincipalName,
+    ResultType,
+    ResultDescription,
+    IPAddress,
+    City,
+    Country,
+    Browser,
+    AppDisplayName,
+    ConditionalAccessStatus
+| sort by TimeGenerated desc
+
+// Monthly test (1st of month): 1 alert expected — document in test log
+// Any other time: INCIDENT — follow breakglass-sop.md section 6

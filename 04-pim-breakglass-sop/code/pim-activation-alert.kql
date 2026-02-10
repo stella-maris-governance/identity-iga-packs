@@ -1,0 +1,14 @@
+// PIM Activation Alert — Sentinel Analytics Rule
+// Frequency: Every 5 minutes | Lookback: 10 minutes | Severity: Informational
+// Deploy: Sentinel > Analytics > Create > Scheduled query rule
+
+AuditLogs
+| where TimeGenerated > ago(10m)
+| where Category == "RoleManagement"
+| where OperationName == "Add member to role in PIM completed (permanent)"
+    or OperationName == "Add member to role in PIM completed (timebound)"
+| extend Role = tostring(TargetResources[0].displayName)
+| extend User = tostring(InitiatedBy.user.userPrincipalName)
+| extend Justification = tostring(parse_json(tostring(AdditionalDetails[0])).value)
+| project TimeGenerated, User, Role, Justification, OperationName
+| sort by TimeGenerated desc
