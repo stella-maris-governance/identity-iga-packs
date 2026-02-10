@@ -1,0 +1,44 @@
+{
+  "_metadata": {
+    "pack": "vendor-guest-viam",
+    "version": "1.0.0",
+    "description": "Entitlement Management access package for external project collaboration."
+  },
+  "displayName": "Guest-Project-Collaboration",
+  "description": "External project contributors: Teams channel, SharePoint site, relevant project apps",
+  "catalog": "External Access",
+  "isHidden": false,
+  "accessPackageResources": [
+    {"resourceType": "group", "displayName": "grp-guest-project-collab", "_note": "Replace with group object ID"},
+    {"resourceType": "application", "displayName": "SharePoint-Project-Site", "_note": "Replace with app object ID"}
+  ],
+  "assignmentPolicies": [
+    {
+      "displayName": "Sponsor + Resource Owner Approval",
+      "allowedTargetScope": "specificDirectoryUsers",
+      "specificAllowedTargets": [{"@odata.type": "#microsoft.graph.connectedOrganizationMembers"}],
+      "expiration": {"type": "afterDuration", "duration": "P90D"},
+      "requestorSettings": {"enableTargetsToSelfAddAccess": false, "allowCustomAssignmentSchedule": false},
+      "requestApprovalSettings": {
+        "isApprovalRequiredForAdd": true,
+        "isApprovalRequiredForUpdate": true,
+        "stages": [
+          {
+            "durationBeforeAutomaticDenial": "P7D",
+            "isApproverJustificationRequired": true,
+            "isEscalationEnabled": false,
+            "primaryApprovers": [
+              {"@odata.type": "#microsoft.graph.requestorManager", "_note": "Sponsor's manager approves"}
+            ]
+          }
+        ]
+      },
+      "reviewSettings": {
+        "isEnabled": true,
+        "recurrenceType": "monthly",
+        "reviewerType": "Requestor",
+        "_note": "Sponsor reviews their own guests monthly"
+      }
+    }
+  ]
+}

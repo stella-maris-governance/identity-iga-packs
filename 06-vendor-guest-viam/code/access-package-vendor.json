@@ -1,0 +1,32 @@
+{
+  "_metadata": {
+    "pack": "vendor-guest-viam",
+    "version": "1.0.0",
+    "description": "Entitlement Management access package for vendor support engineers."
+  },
+  "displayName": "Guest-Vendor-Support",
+  "description": "Vendor support engineers: ServiceNow access, scoped admin tools",
+  "catalog": "External Access",
+  "accessPackageResources": [
+    {"resourceType": "group", "displayName": "grp-guest-vendor-support", "_note": "Replace with group object ID"},
+    {"resourceType": "application", "displayName": "ServiceNow-Support", "_note": "Replace with app object ID"}
+  ],
+  "assignmentPolicies": [
+    {
+      "displayName": "IT Manager Approval",
+      "expiration": {"type": "afterDuration", "duration": "P90D"},
+      "requestApprovalSettings": {
+        "isApprovalRequiredForAdd": true,
+        "stages": [
+          {
+            "durationBeforeAutomaticDenial": "P7D",
+            "isApproverJustificationRequired": true,
+            "primaryApprovers": [
+              {"@odata.type": "#microsoft.graph.singleUser", "userId": "{{IT_MANAGER_ID}}", "_note": "Replace with IT manager user ID"}
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

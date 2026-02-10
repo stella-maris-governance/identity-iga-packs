@@ -1,0 +1,24 @@
+// Guest Expiration Scan
+// Finds guest accounts that may need attention: expired, no sponsor, inactive
+// Run monthly or on demand
+
+// Guests with no sign-in in 90+ days
+SigninLogs
+| where TimeGenerated > ago(90d)
+| where UserType == "Guest"
+| summarize LastSignIn = max(TimeGenerated) by UserPrincipalName
+| join kind=rightanti (
+    AuditLogs
+    | where Category == "UserManagement"
+    | where TargetResources[0].userPrincipalName has "#EXT#"
+    | distinct GuestUPN = tostring(TargetResources[0].userPrincipalName)
+) on $left.UserPrincipalName == $right.GuestUPN
+| project GuestUPN, Status = "No sign-in in 90+ days", Action = "Review for deletion"
+
+// Separately: check entitlement management for expired assignments
+// AuditLogs
+// | where TimeGenerated > ago(30d)
+// | where Category == "EntitlementManagement"
+// | where OperationName has "Remove assignment"
+// | extend User = tostring(TargetResources[0].userPrincipalName)
+// | project TimeGenerated, User, OperationName

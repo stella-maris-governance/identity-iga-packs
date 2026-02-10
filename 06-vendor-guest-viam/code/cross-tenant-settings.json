@@ -1,0 +1,35 @@
+{
+  "_metadata": {
+    "pack": "vendor-guest-viam",
+    "version": "1.0.0",
+    "description": "Cross-tenant access baseline. Configure in Entra > External Identities > Cross-tenant access settings."
+  },
+  "defaultSettings": {
+    "inboundAccess": {
+      "b2bCollaboration": "blocked",
+      "b2bDirectConnect": "blocked",
+      "trustSettings": {
+        "isMfaAccepted": false,
+        "isCompliantDeviceAccepted": false,
+        "isHybridAzureADJoinedDeviceAccepted": false
+      }
+    },
+    "outboundAccess": {
+      "b2bCollaboration": "allowed",
+      "b2bDirectConnect": "blocked"
+    }
+  },
+  "trustedOrganizations": [
+    {
+      "tenantId": "{{PARTNER_TENANT_ID_1}}",
+      "displayName": "Partner Org 1 — SAMPLE",
+      "inboundAccess": {
+        "b2bCollaboration": "allowed",
+        "trustSettings": {"isMfaAccepted": true}
+      },
+      "_note": "Replace tenant ID and name with actual partner"
+    }
+  ],
+  "guestInviteRestrictions": "adminsAndGuestInviters",
+  "_note_invite": "Options: none, adminsAndGuestInviters, adminsGuestInvitersAndAllMembers, everyone"
+}

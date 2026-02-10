@@ -1,0 +1,52 @@
+graph TD
+    subgraph REQUEST["Guest Request"]
+        SPONSOR["Sponsor requests access package"]
+        APPROVE["Approver grants access"]
+        INVITE["Guest receives invitation"]
+    end
+
+    subgraph ACCESS["Access Delivery"]
+        TOU["Accept Terms of Use"]
+        MFA["Complete MFA"]
+        GROUPS["Added to scoped groups"]
+        APPS["Access scoped apps"]
+    end
+
+    subgraph GOVERN["Ongoing Governance"]
+        REVIEW["Monthly sponsor review"]
+        CA["CA007 enforces MFA + ToU"]
+        EXPIRE["Auto-expiration"]
+    end
+
+    subgraph OFFBOARD["Offboarding"]
+        REMOVE["Groups removed on expiry"]
+        BLOCK["Account blocked after 30 days"]
+        DELETE["Account deleted after 180 days"]
+    end
+
+    subgraph EVIDENCE["Evidence"]
+        INVITE_LOG["Invitation + approval log"]
+        REVIEW_LOG["Review decisions"]
+        EXPIRE_LOG["Expiration log"]
+        EVO["Expected vs Observed"]
+    end
+
+    SPONSOR --> APPROVE
+    APPROVE --> INVITE
+    INVITE --> TOU
+    INVITE --> MFA
+    TOU --> GROUPS
+    MFA --> GROUPS
+    GROUPS --> APPS
+
+    APPS --> REVIEW
+    APPS --> CA
+    APPS --> EXPIRE
+
+    EXPIRE --> REMOVE
+    REMOVE --> BLOCK
+    BLOCK --> DELETE
+
+    INVITE_LOG --> EVO
+    REVIEW_LOG --> EVO
+    EXPIRE_LOG --> EVO
