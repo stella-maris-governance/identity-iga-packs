@@ -1,0 +1,24 @@
+// Service Principal Permission Audit
+// Identifies service principals with high-privilege unused permissions
+// Priority: Owner and Contributor at subscription or resource group scope
+
+let analysisWindow = 30d;
+//
+EntraPermissionsManagement_CL
+| where TimeGenerated > ago(analysisWindow)
+| where IdentityKind_s == "ServicePrincipal"
+| where RoleDefinition_s in ("Owner", "Contributor")
+| summarize
+    LatestPCI = max(PermissionCreepIndex_d),
+    UsedActions = dcount(ActionPerformed_s),
+    LastActivity = max(TimeGenerated)
+    by IdentityName_s, RoleDefinition_s, Scope_s
+| extend DaysSinceActivity = datetime_diff('day', now(), LastActivity)
+| extend RiskLevel = case(
+    RoleDefinition_s == "Owner" and LatestPCI > 80, "Critical",
+    RoleDefinition_s == "Contributor" and LatestPCI > 80, "High",
+    LatestPCI > 60, "Medium",
+    "Low"
+  )
+| project IdentityName_s, RoleDefinition_s, Scope_s, LatestPCI, UsedActions, DaysSinceActivity, RiskLevel
+| sort by RiskLevel asc, LatestPCI desc

@@ -1,0 +1,28 @@
+// High PCI Identity Report
+// Identifies all cloud identities with Permission Creep Index above threshold
+// Run monthly or on demand for right-sizing triage
+
+// Note: Entra Permissions Management data is accessed through its own portal
+// and API. This KQL runs against exported data in Log Analytics.
+
+let pciThreshold = 80;
+let analysisWindow = 30d;
+//
+EntraPermissionsManagement_CL
+| where TimeGenerated > ago(analysisWindow)
+| where PermissionCreepIndex_d >= pciThreshold
+| extend IdentityType = case(
+    IdentityKind_s == "User", "User",
+    IdentityKind_s == "ServicePrincipal", "Service Principal",
+    IdentityKind_s == "ManagedIdentity", "Managed Identity",
+    IdentityKind_s == "ExternalUser", "External Identity",
+    "Unknown"
+  )
+| summarize
+    LatestPCI = max(PermissionCreepIndex_d),
+    GrantedPermissions = max(GrantedPermissions_d),
+    UsedPermissions = max(UsedPermissions_d)
+    by IdentityName_s, IdentityType, SubscriptionName_s
+| extend UnusedPercent = round(100.0 * (GrantedPermissions - UsedPermissions) / GrantedPermissions, 1)
+| project IdentityName_s, IdentityType, SubscriptionName_s, LatestPCI, GrantedPermissions, UsedPermissions, UnusedPercent
+| sort by LatestPCI desc

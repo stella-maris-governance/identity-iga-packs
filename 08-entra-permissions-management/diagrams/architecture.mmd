@@ -1,0 +1,46 @@
+graph TD
+    subgraph CLOUD["Cloud Environments"]
+        AZURE["Azure Subscriptions"]
+        AWS["AWS Accounts"]
+        GCP["GCP Projects"]
+    end
+
+    subgraph EPM["Entra Permissions Management"]
+        COLLECT["Data Collection"]
+        PCI["Permission Creep Index"]
+        RIGHTSZ["Right-Size Engine"]
+        ALERTS["Anomaly Alerts"]
+        JIT["JIT Access"]
+    end
+
+    subgraph ACTION["Governance Actions"]
+        SCOPE["Scope reduction"]
+        CUSTOM["Custom roles"]
+        MIGRATE["Migrate to PIM JIT"]
+        RESPOND["Alert response"]
+    end
+
+    subgraph EVIDENCE["Evidence"]
+        TREND["PCI trend data"]
+        REMEDIATE_LOG["Right-size log"]
+        ALERT_LOG["Alert + disposition log"]
+        EVO["Expected vs Observed"]
+    end
+
+    AZURE --> COLLECT
+    AWS --> COLLECT
+    GCP --> COLLECT
+
+    COLLECT --> PCI
+    PCI --> RIGHTSZ
+    PCI --> ALERTS
+    PCI --> JIT
+
+    RIGHTSZ --> SCOPE
+    RIGHTSZ --> CUSTOM
+    RIGHTSZ --> MIGRATE
+    ALERTS --> RESPOND
+
+    TREND --> EVO
+    REMEDIATE_LOG --> EVO
+    ALERT_LOG --> EVO
