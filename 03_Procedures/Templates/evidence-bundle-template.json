@@ -1,0 +1,52 @@
+{
+  "_metadata": {
+    "type": "evidence_bundle",
+    "version": "1.0.0",
+    "template": true,
+    "description": "Template for pack-level evidence bundles. The AO seals this artifact.",
+    "cui_boundary": "ENFORCED — no source documents, metadata only",
+    "policy_alignment": ["POL-AC-01", "POL-SC-01", "POL-QR-01", "CONST-01"]
+  },
+  "bundle_id": "SMG-{PILLAR}-{PACK}-{DATE}",
+  "pillar": "{IGA|SCRM|FinOps|CloudSec}",
+  "pack": "{Pack name}",
+  "assessment_date": "YYYY-MM-DD",
+  "assessor": "Name",
+  "controls": [
+    {
+      "control_id": "{PILLAR}-{PACK}-{SEQ}",
+      "description": "Control description",
+      "expected_state": "What should exist",
+      "observed_state": "What actually exists",
+      "status": "PASS | PARTIAL | FAIL",
+      "evidence_type": "screenshot | log | configuration | test_result",
+      "source_references": [
+        {
+          "document": "Description of source",
+          "location": "SMG-VAULT/{path} or screenshot #{N}",
+          "classification": "PUBLIC | INTERNAL | CONFIDENTIAL",
+          "hash": "sha256:{hash}"
+        }
+      ],
+      "justification": "Why this status was assigned",
+      "remediation": "If PARTIAL or FAIL, what is the fix and target date"
+    }
+  ],
+  "summary": {
+    "total_controls": 10,
+    "pass": 0,
+    "partial": 0,
+    "fail": 0
+  },
+  "sram_feed": {
+    "findings": [],
+    "risk_entries": [],
+    "remediation_items": []
+  },
+  "ao_seal": {
+    "status": "PENDING",
+    "sealed_by": null,
+    "seal_date": null,
+    "notes": null
+  }
+}

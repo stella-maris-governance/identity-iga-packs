@@ -1,0 +1,153 @@
+{
+  "name": "Acme Cloud Services",
+  "service": "Cloud Infrastructure Hosting",
+  "data_access_level": "cui",
+  "cyber_posture": {
+    "attestation_current": {
+      "selected": "soc2_type2",
+      "justification": {
+        "assessor": "Robert Myers",
+        "date": "2026-02-12",
+        "evidence_reviewed": [
+          "SOC 2 Type II report dated 2025-09-30",
+          "Report covers period 2024-10-01 to 2025-09-30",
+          "No qualified opinions"
+        ],
+        "source_references": [
+          {
+            "document": "SOC 2 Type II Report",
+            "section": "Full report",
+            "location": "SMG-VAULT/Vendors/AcmeCloud/SOC2-TypeII-2025.pdf",
+            "classification": "CONFIDENTIAL",
+            "hash": "sha256:a4f2e8c91b3d7f6e2a8c4d5b9e1f3a7c"
+          }
+        ],
+        "assessor_notes": "Current SOC 2 Type II with clean opinion. Covers all five trust service criteria. Expires 2026-09-30."
+      }
+    },
+    "vuln_management": {
+      "selected": "mature",
+      "justification": {
+        "assessor": "Robert Myers",
+        "date": "2026-02-12",
+        "evidence_reviewed": [
+          "SOC 2 Section 3.1: Vulnerability scanning weekly",
+          "Vendor provided patch management SLA: Critical 48hrs, High 7 days",
+          "Last 12 months: 100% SLA adherence per vendor report"
+        ],
+        "source_references": [
+          {
+            "document": "SOC 2 Type II Report",
+            "section": "3.1 Vulnerability Management",
+            "location": "SMG-VAULT/Vendors/AcmeCloud/SOC2-TypeII-2025.pdf",
+            "classification": "CONFIDENTIAL",
+            "hash": "sha256:a4f2e8c91b3d7f6e2a8c4d5b9e1f3a7c"
+          }
+        ],
+        "assessor_notes": "Mature program with documented SLAs, weekly scanning, and 100% adherence over 12 months."
+      }
+    },
+    "incident_history": {
+      "selected": "minor_1",
+      "justification": {
+        "assessor": "Robert Myers",
+        "date": "2026-02-12",
+        "evidence_reviewed": [
+          "Vendor incident disclosure log reviewed",
+          "One minor incident: API rate limiting event July 2025",
+          "No data exposure, no customer impact, resolved in 2 hours"
+        ],
+        "source_references": [
+          {
+            "document": "Vendor Incident Disclosure",
+            "section": "2025 Incident Log",
+            "location": "SMG-VAULT/Vendors/AcmeCloud/IncidentLog-2025.pdf",
+            "classification": "INTERNAL",
+            "hash": "sha256:c7d8e9f0a1b2c3d4e5f6a7b8"
+          }
+        ],
+        "assessor_notes": "One minor incident with no data exposure. Vendor was transparent and resolved within SLA."
+      }
+    },
+    "sbom_available": {
+      "selected": "partial",
+      "justification": {
+        "assessor": "Robert Myers",
+        "date": "2026-02-12",
+        "evidence_reviewed": [
+          "SBOM provided for main platform (CycloneDX format)",
+          "SBOM does not cover third-party integrations",
+          "No automated refresh process"
+        ],
+        "source_references": [
+          {
+            "document": "Platform SBOM",
+            "section": "Full SBOM",
+            "location": "SMG-VAULT/Vendors/AcmeCloud/SBOM-Platform-v2.1.json",
+            "classification": "INTERNAL",
+            "hash": "sha256:d1e2f3a4b5c6d7e8f9a0b1c2"
+          }
+        ],
+        "assessor_notes": "Partial SBOM. Platform components documented but integrations missing. Manual refresh process."
+      }
+    },
+    "mfa_zero_trust": {
+      "selected": "mfa_enforced",
+      "justification": {
+        "assessor": "Robert Myers",
+        "date": "2026-02-12",
+        "evidence_reviewed": [
+          "SOC 2 Section 4.1: MFA required for all administrative access",
+          "MFA enforced for customer portal access",
+          "Traditional perimeter model, not Zero Trust"
+        ],
+        "source_references": [
+          {
+            "document": "SOC 2 Type II Report",
+            "section": "4.1 Access Controls",
+            "location": "SMG-VAULT/Vendors/AcmeCloud/SOC2-TypeII-2025.pdf",
+            "classification": "CONFIDENTIAL",
+            "hash": "sha256:a4f2e8c91b3d7f6e2a8c4d5b9e1f3a7c"
+          }
+        ],
+        "assessor_notes": "MFA enforced everywhere. Not Zero Trust architecture — traditional perimeter with VPN."
+      }
+    },
+    "encryption": {
+      "selected": "full",
+      "justification": {
+        "assessor": "Robert Myers",
+        "date": "2026-02-12",
+        "evidence_reviewed": [
+          "SOC 2 Section 4.2: AES-256 encryption at rest",
+          "TLS 1.3 enforced for all data in transit",
+          "Customer-managed keys via dedicated HSM"
+        ],
+        "source_references": [
+          {
+            "document": "SOC 2 Type II Report",
+            "section": "4.2 Encryption Controls",
+            "location": "SMG-VAULT/Vendors/AcmeCloud/SOC2-TypeII-2025.pdf",
+            "classification": "CONFIDENTIAL",
+            "hash": "sha256:a4f2e8c91b3d7f6e2a8c4d5b9e1f3a7c"
+          }
+        ],
+        "assessor_notes": "Full encryption: AES-256 at rest, TLS 1.3 in transit, customer-managed keys in HSM."
+      }
+    }
+  },
+  "financial_stability": {
+    "years_operating": {"selected": "5_to_10", "justification": {"assessor": "Robert Myers", "date": "2026-02-12", "evidence_reviewed": ["SEC filing: incorporated 2018"], "source_references": [{"document": "SEC Filing", "location": "SMG-VAULT/Vendors/AcmeCloud/SEC-10K-2025.pdf", "hash": "sha256:e3f4a5b6c7d8"}], "assessor_notes": "Operating since 2018, 8 years continuous."}},
+    "revenue_trend": {"selected": "growing", "justification": {"assessor": "Robert Myers", "date": "2026-02-12", "evidence_reviewed": ["Revenue growth 22% YoY per 10-K"], "source_references": [{"document": "SEC 10-K", "location": "SMG-VAULT/Vendors/AcmeCloud/SEC-10K-2025.pdf", "hash": "sha256:e3f4a5b6c7d8"}], "assessor_notes": "22% YoY revenue growth. Healthy trajectory."}},
+    "funding_status": {"selected": "profitable", "justification": {"assessor": "Robert Myers", "date": "2026-02-12", "evidence_reviewed": ["Net income positive 6 consecutive quarters"], "source_references": [{"document": "SEC 10-K", "location": "SMG-VAULT/Vendors/AcmeCloud/SEC-10K-2025.pdf", "hash": "sha256:e3f4a5b6c7d8"}], "assessor_notes": "Profitable. No external funding dependency."}},
+    "customer_concentration": {"selected": "moderate", "justification": {"assessor": "Robert Myers", "date": "2026-02-12", "evidence_reviewed": ["10-K discloses one customer at 28% of revenue"], "source_references": [{"document": "SEC 10-K", "location": "SMG-VAULT/Vendors/AcmeCloud/SEC-10K-2025.pdf", "hash": "sha256:e3f4a5b6c7d8"}], "assessor_notes": "One customer at 28%. Moderate concentration."}},
+    "insurance_coverage": {"selected": "adequate", "justification": {"assessor": "Robert Myers", "date": "2026-02-12", "evidence_reviewed": ["Certificate of insurance: $10M cyber liability"], "source_references": [{"document": "Certificate of Insurance", "location": "SMG-VAULT/Vendors/AcmeCloud/COI-2026.pdf", "hash": "sha256:f5a6b7c8d9e0"}], "assessor_notes": "Coverage exceeds contract value."}}
+  },
+  "geopolitical_risk": {
+    "headquarters_jurisdiction": {"selected": "us_domestic", "justification": {"assessor": "Robert Myers", "date": "2026-02-12", "evidence_reviewed": ["SEC filing: HQ Austin, TX"], "source_references": [{"document": "SEC 10-K", "location": "SMG-VAULT/Vendors/AcmeCloud/SEC-10K-2025.pdf", "hash": "sha256:e3f4a5b6c7d8"}], "assessor_notes": "US domestic. Austin, TX."}},
+    "data_processing_location": {"selected": "us_only", "justification": {"assessor": "Robert Myers", "date": "2026-02-12", "evidence_reviewed": ["DPA Section 3: All processing in US-EAST and US-WEST regions"], "source_references": [{"document": "Data Processing Agreement", "location": "SMG-VAULT/Vendors/AcmeCloud/DPA-2025.pdf", "hash": "sha256:a1b2c3d4e5f6"}], "assessor_notes": "US-only processing confirmed in DPA."}},
+    "itar_ear_compliance": {"selected": "compliant_verified", "justification": {"assessor": "Robert Myers", "date": "2026-02-12", "evidence_reviewed": ["ITAR compliance letter from vendor legal"], "source_references": [{"document": "ITAR Compliance Letter", "location": "SMG-VAULT/Vendors/AcmeCloud/ITAR-Compliance-2026.pdf", "hash": "sha256:b2c3d4e5f6a7"}], "assessor_notes": "Vendor legal provided ITAR compliance attestation."}},
+    "subcontractor_jurisdiction": {"selected": "all_domestic", "justification": {"assessor": "Robert Myers", "date": "2026-02-12", "evidence_reviewed": ["Subprocessor list: 3 entities, all US-based"], "source_references": [{"document": "Subprocessor List", "location": "SMG-VAULT/Vendors/AcmeCloud/Subprocessors-2026.pdf", "hash": "sha256:c3d4e5f6a7b8"}], "assessor_notes": "All three subprocessors US domestic."}},
+    "ownership_structure": {"selected": "us_owned", "justification": {"assessor": "Robert Myers", "date": "2026-02-12", "evidence_reviewed": ["SEC filing: no foreign ownership disclosed"], "source_references": [{"document": "SEC 10-K", "location": "SMG-VAULT/Vendors/AcmeCloud/SEC-10K-2025.pdf", "hash": "sha256:e3f4a5b6c7d8"}], "assessor_notes": "US-owned. No FOCI indicators."}}
+  }
+}

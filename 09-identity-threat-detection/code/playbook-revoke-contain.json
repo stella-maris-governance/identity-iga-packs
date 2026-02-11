@@ -51,7 +51,7 @@
           "method": "post",
           "path": "/v2/Mail",
           "body": {
-            "To": "soc@stellamarisgovernance.com",
+            "To": "robert@rmyers.cloud",
             "Subject": "ITDR AUTO-CONTAIN: @{body('Step_1_Get_User')?['userPrincipalName']}",
             "Body": "Account disabled and sessions revoked. Incident: @{triggerBody()?['object']?['properties']?['title']}. Investigate immediately."
           }

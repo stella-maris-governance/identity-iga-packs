@@ -25,21 +25,21 @@ $alerts = @(
         Name = "High-Risk First Use"
         Description = "Identity uses a permission category for the first time"
         Severity = "High"
-        NotifyEmail = "iam-lead@stellamarisgovernance.com"
+        NotifyEmail = "robert@rmyers.cloud"
         NotifyTeams = $true
     },
     @{
         Name = "Usage Anomaly"
         Description = "Activity volume exceeds 3x baseline for identity"
         Severity = "Medium"
-        NotifyEmail = "iam-lead@stellamarisgovernance.com"
+        NotifyEmail = "robert@rmyers.cloud"
         NotifyTeams = $true
     },
     @{
         Name = "New Privilege Grant"
         Description = "Owner or Contributor assigned to identity"
         Severity = "High"
-        NotifyEmail = "iam-lead@stellamarisgovernance.com"
+        NotifyEmail = "robert@rmyers.cloud"
         NotifyTeams = $true
     }
 )
