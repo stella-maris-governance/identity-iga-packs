@@ -1,4 +1,6 @@
-# Expected vs Observed — Separation of Duties Matrix
+# The Law of Evidence: Expected vs. Observed
+
+## Separation of Duties Matrix
 
 > **Assessment Date:** 2026-02-10 [SAMPLE — replace with your assessment date]
 > **Environment:** Stella Maris Lab Tenant [SAMPLE — replace with your tenant name]

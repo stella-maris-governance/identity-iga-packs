@@ -1,4 +1,6 @@
-# Expected vs Observed — Zero-Touch JML Lifecycle
+# The Law of Evidence: Expected vs. Observed
+
+## Zero-Touch JML Lifecycle
 
 > **Assessment Date:** 2026-02-10 [SAMPLE — replace with your assessment date]
 > **Environment:** Stella Maris Lab Tenant [SAMPLE — replace with your tenant name]

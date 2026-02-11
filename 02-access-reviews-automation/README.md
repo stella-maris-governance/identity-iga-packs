@@ -151,7 +151,7 @@ This is the most critical design decision: **non-response = deny.** This elimina
 
 | File | Description |
 |------|-------------|
-| [`expected-vs-observed.md`](docs/expected-vs-observed.md) | **THE proof table** — 10 controls |
+| [`expected-vs-observed.md`](docs/expected-vs-observed.md) | The Law of Evidence — 10 controls |
 | [`access-reviews-runbook.md`](docs/access-reviews-runbook.md) | Full operations SOP |
 | [`control-mapping.md`](docs/control-mapping.md) | NIST / CIS / CMMC / SOX alignment |
 
@@ -210,6 +210,6 @@ This is the most critical design decision: **non-response = deny.** This elimina
 
 **© 2026 Stella Maris Governance LLC** — Evaluation and demonstration use permitted. Commercial use requires engagement.
 
-*"Expected vs Observed" — because proof beats promises.*
+*The work speaks for itself. Stella Maris — the one light that does not drift.*
 
 </div>

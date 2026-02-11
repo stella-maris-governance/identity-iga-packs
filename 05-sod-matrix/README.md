@@ -162,7 +162,7 @@ All SoD exceptions require:
 
 | File | Description |
 |------|-------------|
-| [`expected-vs-observed.md`](docs/expected-vs-observed.md) | **THE proof table** — 10 controls |
+| [`expected-vs-observed.md`](docs/expected-vs-observed.md) | The Law of Evidence — 10 controls |
 | [`sod-operations-runbook.md`](docs/sod-operations-runbook.md) | Full SoD operations SOP |
 | [`control-mapping.md`](docs/control-mapping.md) | NIST / CIS / CMMC / SOX alignment |
 
@@ -215,6 +215,6 @@ All SoD exceptions require:
 
 **© 2026 Stella Maris Governance LLC** — Evaluation and demonstration use permitted. Commercial use requires engagement.
 
-*"Expected vs Observed" — because proof beats promises.*
+*The work speaks for itself. Stella Maris — the one light that does not drift.*
 
 </div>

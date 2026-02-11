@@ -1,4 +1,6 @@
-# Expected vs Observed — Vendor / Guest vIAM
+# The Law of Evidence: Expected vs. Observed
+
+## Vendor / Guest vIAM
 
 > **Assessment Date:** 2026-02-10 [SAMPLE — replace with your assessment date]
 > **Environment:** Stella Maris Lab Tenant [SAMPLE — replace with your tenant name]

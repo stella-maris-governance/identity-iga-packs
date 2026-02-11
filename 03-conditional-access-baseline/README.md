@@ -153,7 +153,7 @@ CA{###}-{Target}-{Control}-{Platform}
 
 | File | Description |
 |------|-------------|
-| [`expected-vs-observed.md`](docs/expected-vs-observed.md) | **THE proof table** — 10 controls with expected/observed state, evidence, pass/fail |
+| [`expected-vs-observed.md`](docs/expected-vs-observed.md) | The Law of Evidence — 10 controls with expected/observed state, evidence, pass/fail |
 | [`conditional-access-runbook.md`](docs/conditional-access-runbook.md) | Full operations runbook |
 | [`control-mapping.md`](docs/control-mapping.md) | NIST 800-53 / CIS Azure / CMMC L2 alignment |
 
@@ -207,6 +207,6 @@ CA{###}-{Target}-{Control}-{Platform}
 
 **© 2026 Stella Maris Governance LLC** — Evaluation and demonstration use permitted. Commercial use requires engagement.
 
-*"Expected vs Observed" — because proof beats promises.*
+*The work speaks for itself. Stella Maris — the one light that does not drift.*
 
 </div>

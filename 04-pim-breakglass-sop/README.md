@@ -165,7 +165,7 @@ graph TD
 
 | File | Description |
 |------|-------------|
-| [`expected-vs-observed.md`](docs/expected-vs-observed.md) | **THE proof table** — 10 controls |
+| [`expected-vs-observed.md`](docs/expected-vs-observed.md) | The Law of Evidence — 10 controls |
 | [`pim-operations-runbook.md`](docs/pim-operations-runbook.md) | Full PIM operations SOP |
 | [`breakglass-sop.md`](docs/breakglass-sop.md) | Break-glass SOP: creation, storage, monthly test, emergency activation, post-incident |
 | [`control-mapping.md`](docs/control-mapping.md) | NIST / CIS / CMMC alignment |
@@ -222,6 +222,6 @@ graph TD
 
 **© 2026 Stella Maris Governance LLC** — Evaluation and demonstration use permitted. Commercial use requires engagement.
 
-*"Expected vs Observed" — because proof beats promises.*
+*The work speaks for itself. Stella Maris — the one light that does not drift.*
 
 </div>

@@ -187,7 +187,7 @@ Day 270    If still blocked — guest account deleted (180 days inactive)
 
 | File | Description |
 |------|-------------|
-| [`expected-vs-observed.md`](docs/expected-vs-observed.md) | **THE proof table** — 10 controls |
+| [`expected-vs-observed.md`](docs/expected-vs-observed.md) | The Law of Evidence — 10 controls |
 | [`guest-lifecycle-runbook.md`](docs/guest-lifecycle-runbook.md) | Full guest lifecycle SOP |
 | [`control-mapping.md`](docs/control-mapping.md) | NIST / CIS / CMMC alignment |
 
@@ -244,6 +244,6 @@ Day 270    If still blocked — guest account deleted (180 days inactive)
 
 **© 2026 Stella Maris Governance LLC** — Evaluation and demonstration use permitted. Commercial use requires engagement.
 
-*"Expected vs Observed" — because proof beats promises.*
+*The work speaks for itself. Stella Maris — the one light that does not drift.*
 
 </div>

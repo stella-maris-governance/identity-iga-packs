@@ -178,7 +178,7 @@ All access is driven by attributes, not manual assignment. When HR changes a dep
 
 | File | Description |
 |------|-------------|
-| [`expected-vs-observed.md`](docs/expected-vs-observed.md) | **THE proof table** — 10 controls |
+| [`expected-vs-observed.md`](docs/expected-vs-observed.md) | The Law of Evidence — 10 controls |
 | [`jml-operations-runbook.md`](docs/jml-operations-runbook.md) | Full JML operations SOP |
 | [`control-mapping.md`](docs/control-mapping.md) | NIST / CIS / CMMC alignment |
 
@@ -238,6 +238,6 @@ All access is driven by attributes, not manual assignment. When HR changes a dep
 
 **© 2026 Stella Maris Governance LLC** — Evaluation and demonstration use permitted. Commercial use requires engagement.
 
-*"Expected vs Observed" — because proof beats promises.*
+*The work speaks for itself. Stella Maris — the one light that does not drift.*
 
 </div>

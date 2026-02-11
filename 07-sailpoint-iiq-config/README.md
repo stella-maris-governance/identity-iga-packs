@@ -186,7 +186,7 @@ graph TD
 
 | File | Description |
 |------|-------------|
-| [`expected-vs-observed.md`](docs/expected-vs-observed.md) | **THE proof table** — 10 controls |
+| [`expected-vs-observed.md`](docs/expected-vs-observed.md) | The Law of Evidence — 10 controls |
 | [`iiq-operations-runbook.md`](docs/iiq-operations-runbook.md) | Full IIQ operations SOP |
 | [`control-mapping.md`](docs/control-mapping.md) | NIST / SOX / CMMC alignment |
 
@@ -244,6 +244,6 @@ graph TD
 
 **© 2026 Stella Maris Governance LLC** — Evaluation and demonstration use permitted. Commercial use requires engagement.
 
-*If it can't survive an audit, a budget review, or executive scrutiny, we don't ship it.*
+*The work speaks for itself. Stella Maris — the one light that does not drift.*
 
 </div>

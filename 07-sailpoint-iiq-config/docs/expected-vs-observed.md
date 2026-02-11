@@ -1,4 +1,6 @@
-# Expected vs Observed — SailPoint IdentityIQ Configuration
+# The Law of Evidence: Expected vs. Observed
+
+## SailPoint IdentityIQ Configuration
 
 > **Assessment Date:** 2026-02-10 [SAMPLE — replace with your assessment date]
 > **Environment:** SailPoint IIQ 8.4 Sandbox [SAMPLE — replace with your environment]
