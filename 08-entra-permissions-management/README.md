@@ -146,15 +146,17 @@ PCI is the core metric. It measures the gap between what an identity can do and 
 | [`ciem-operations-runbook.md`](docs/ciem-operations-runbook.md) | Full CIEM operations SOP |
 | [`control-mapping.md`](docs/control-mapping.md) | NIST / CIS / CMMC alignment |
 
-### `screenshots/` — Portal Evidence
+### `screenshots/` — Evidence
 
-| # | What It Shows |
-|---|--------------|
-| 01 | Permissions Management dashboard: PCI overview |
-| 02 | High-PCI identity detail with granted vs used |
-| 03 | Right-size recommendation for service principal |
-| 04 | Activity alert: anomalous permission usage |
-| 05 | Permission analytics trend: PCI over 90 days |
+This pack uses **deterministic engine outputs** as primary evidence rather than portal screenshots.
+
+| Evidence Type | Format | Purpose |
+|--------------|--------|---------|
+| Engine output (`.txt`) | Script terminal output | Primary — proves logic and methodology |
+| Report output (`.md`) | Formatted engine report | Primary — proves analysis and findings |
+| Portal screenshot (`.png`) | Azure portal capture | Secondary — added when running against live environment |
+
+> See `EVIDENCE-README.md` in the screenshots directory for the full evidence approach.
 
 ---
 

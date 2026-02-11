@@ -2,9 +2,6 @@
 
 > Production-ready Conditional Access policy set aligned to Microsoft best practices and Zero Trust
 
-[![Cert](https://img.shields.io/badge/cert-SC--300-0078D4?style=flat-square&logo=microsoft)](https://learn.microsoft.com/en-us/credentials/certifications/identity-and-access-administrator/)
-[![Cert](https://img.shields.io/badge/cert-AZ--500-0078D4?style=flat-square&logo=microsoft)](https://learn.microsoft.com/en-us/credentials/certifications/azure-security-engineer/)
-[![Cert](https://img.shields.io/badge/cert-SC--900-0078D4?style=flat-square&logo=microsoft)](https://learn.microsoft.com/en-us/credentials/certifications/security-compliance-and-identity-fundamentals/)
 [![Controls](https://img.shields.io/badge/Expected_vs_Observed-10_controls-8957e5?style=flat-square)]()
 [![Framework](https://img.shields.io/badge/framework-Zero_Trust-ff6b35?style=flat-square)]()
 
@@ -18,6 +15,20 @@
 | **Consulting Client** | [`expected-vs-observed.md`](docs/expected-vs-observed.md) — the gap between Expected and your Observed is the engagement scope |
 | **Auditor / GRC** | [`expected-vs-observed.md`](docs/expected-vs-observed.md) then [`control-mapping.md`](docs/control-mapping.md) for NIST/CIS/CMMC alignment |
 | **Engineer** | [`/code/`](code/) for deployable policy JSON then [`conditional-access-runbook.md`](docs/conditional-access-runbook.md) for procedures |
+
+---
+
+## The Problem
+
+Without Conditional Access, your authentication model has one rule: if you know the password, you're in.
+
+That's not Zero Trust. That's implicit trust — the assumption that a valid credential equals a legitimate user. In practice, a valid credential could be a phished employee, a leaked password from a credential dump, a terminated contractor using credentials nobody revoked, or an attacker replaying a token from a compromised session.
+
+Conditional Access adds the context that passwords can't provide. Not just "do you know the password?" but: Where are you? What device are you on? Is your sign-in behavior normal? What risk signals are present? Are you accessing something sensitive? The answers to those questions determine whether you get access, get challenged with MFA, or get blocked entirely.
+
+Most organizations implement MFA and call it done. MFA is one layer. A complete Conditional Access baseline includes device compliance, risk-based blocking, legacy protocol elimination, session management, guest restrictions, geographic controls, and phishing-resistant authentication for administrators. This pack deploys all ten.
+
+> **Watchstander Note:** In credential governance for DOJ and DOD environments, "the password is correct" was never sufficient for access. CAC/PKI authentication required something you have, something you know, and something the system could verify about your context. Conditional Access brings that same philosophy to commercial cloud. The technology is different. The principle is identical.
 
 ---
 
@@ -157,12 +168,17 @@ CA{###}-{Target}-{Control}-{Platform}
 | [`conditional-access-runbook.md`](docs/conditional-access-runbook.md) | Full operations runbook |
 | [`control-mapping.md`](docs/control-mapping.md) | NIST 800-53 / CIS Azure / CMMC L2 alignment |
 
-### `screenshots/` — Portal Evidence
+### `screenshots/` — Evidence
 
-| # | What It Shows |
-|---|--------------|
-| 01 | All 10 CA policies with status |
-| 02-08 | Policy details, grant controls, named locations, CA Insights, sign-in logs |
+This pack uses **deterministic engine outputs** as primary evidence rather than portal screenshots.
+
+| Evidence Type | Format | Purpose |
+|--------------|--------|---------|
+| Engine output (`.txt`) | Script terminal output | Primary — proves logic and methodology |
+| Report output (`.md`) | Formatted engine report | Primary — proves analysis and findings |
+| Portal screenshot (`.png`) | Azure portal capture | Secondary — added when running against live environment |
+
+> See `EVIDENCE-README.md` in the screenshots directory for the full evidence approach.
 
 ---
 

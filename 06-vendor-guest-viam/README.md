@@ -2,8 +2,6 @@
 
 > External identity lifecycle governance — from invitation to offboarding with automated expiration and sponsor accountability
 
-[![Cert](https://img.shields.io/badge/cert-SC--300-0078D4?style=flat-square&logo=microsoft)](https://learn.microsoft.com/en-us/credentials/certifications/identity-and-access-administrator/)
-[![Cert](https://img.shields.io/badge/cert-SailPoint_ISL-0033A0?style=flat-square)]()
 [![Controls](https://img.shields.io/badge/Expected_vs_Observed-10_controls-8957e5?style=flat-square)]()
 [![Framework](https://img.shields.io/badge/framework-External_Identity_Governance-ff6b35?style=flat-square)]()
 
@@ -17,6 +15,22 @@
 | **Consulting Client** | [`expected-vs-observed.md`](docs/expected-vs-observed.md) — if your guest accounts have no expiration, no sponsor, and no review, the gap is your engagement |
 | **Auditor / GRC** | [`expected-vs-observed.md`](docs/expected-vs-observed.md) then [`control-mapping.md`](docs/control-mapping.md) — NIST IA-8, AC-2, PE-2 alignment |
 | **Engineer** | [`/code/`](code/) for entitlement management configs then [`guest-lifecycle-runbook.md`](docs/guest-lifecycle-runbook.md) |
+
+---
+
+## The Problem
+
+External identities are the front door you opened for partners and forgot to close.
+
+When a consulting engagement starts, the vendor needs access. An Azure AD guest account is created, often by the project manager through a quick invitation. The vendor gets access to Teams channels, SharePoint sites, maybe an application or two. The engagement proceeds. Work gets done.
+
+Six months later, the engagement ends. The consultant moves to another client. But their guest account is still active. Their access to your Teams channels, your SharePoint documents, your internal applications — all still live. Nobody revoked it because nobody owns guest lifecycle. The project manager who invited them moved on. IT doesn't know the guest exists. The vendor doesn't care — they still have access to a client environment, which is convenient if the relationship resumes.
+
+In a regulated environment, an unmanaged external identity with access to internal resources is an access control failure. In a defense environment, it's a potential spillage event. The guest doesn't need malicious intent — they just need to accidentally access something they shouldn't, and the containment exercise begins.
+
+This pack governs the entire guest lifecycle: structured invitation through access packages, automatic expiration dates, sponsor accountability, quarterly access reviews, and confirmed revocation at relationship end.
+
+> **Watchstander Note:** In federal environments, every visitor requires a sponsor, a purpose, a badge, and an escort. When the visit ends, the badge is collected at the door. Guest identity governance is the digital equivalent — except the badge is an Entra ID account, the escort is an access package, and the door closes automatically on the expiration date.
 
 ---
 
@@ -191,15 +205,17 @@ Day 270    If still blocked — guest account deleted (180 days inactive)
 | [`guest-lifecycle-runbook.md`](docs/guest-lifecycle-runbook.md) | Full guest lifecycle SOP |
 | [`control-mapping.md`](docs/control-mapping.md) | NIST / CIS / CMMC alignment |
 
-### `screenshots/` — Portal Evidence
+### `screenshots/` — Evidence
 
-| # | What It Shows |
-|---|--------------|
-| 01 | Entitlement Management: access packages list |
-| 02 | Access package assignment with approval chain |
-| 03 | Cross-tenant access settings |
-| 04 | Guest account properties (sponsor, expiration) |
-| 05 | Guest expiration scan results |
+This pack uses **deterministic engine outputs** as primary evidence rather than portal screenshots.
+
+| Evidence Type | Format | Purpose |
+|--------------|--------|---------|
+| Engine output (`.txt`) | Script terminal output | Primary — proves logic and methodology |
+| Report output (`.md`) | Formatted engine report | Primary — proves analysis and findings |
+| Portal screenshot (`.png`) | Azure portal capture | Secondary — added when running against live environment |
+
+> See `EVIDENCE-README.md` in the screenshots directory for the full evidence approach.
 
 ---
 

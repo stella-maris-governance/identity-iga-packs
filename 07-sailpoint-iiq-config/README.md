@@ -2,8 +2,6 @@
 
 > Enterprise identity governance — lifecycle automation, access certifications, role mining, and SOD enforcement at scale
 
-[![Cert](https://img.shields.io/badge/cert-SailPoint_ISL-0033A0?style=flat-square)]()
-[![Cert](https://img.shields.io/badge/cert-SC--300-0078D4?style=flat-square&logo=microsoft)](https://learn.microsoft.com/en-us/credentials/certifications/identity-and-access-administrator/)
 [![Controls](https://img.shields.io/badge/Expected_vs_Observed-10_controls-8957e5?style=flat-square)]()
 [![Framework](https://img.shields.io/badge/framework-Enterprise_IGA-ff6b35?style=flat-square)]()
 
@@ -17,6 +15,20 @@
 | **Consulting Client** | [`expected-vs-observed.md`](docs/expected-vs-observed.md) — if your IGA platform is deployed but not governed, the gap is your engagement |
 | **Auditor / GRC** | [`expected-vs-observed.md`](docs/expected-vs-observed.md) then [`control-mapping.md`](docs/control-mapping.md) — NIST AC-2, AC-6, AU-2 alignment |
 | **Engineer** | [`/code/`](code/) for IIQ config XML then [`iiq-operations-runbook.md`](docs/iiq-operations-runbook.md) |
+
+---
+
+## The Problem
+
+Entra ID Lifecycle Workflows handle identity governance for organizations with hundreds of users and straightforward access patterns. But when the population grows to thousands, when access decisions depend on business logic that can't be expressed in dynamic group rules, when role mining reveals 400 unique access combinations that need to be rationalized into 30 enterprise roles, when certification campaigns span 10,000 entitlements across 200 applications — native cloud tooling hits its ceiling.
+
+SailPoint IdentityIQ exists for this scale. It's not a replacement for Entra ID — it's the orchestration layer that sits above it. Where Entra ID manages authentication and basic lifecycle, SailPoint manages the complex identity governance decisions: who should have access to what, based on what role, approved by whom, reviewed on what cadence, with what risk score.
+
+But SailPoint's power creates its own risk. A misconfigured certification campaign that auto-approves everything is worse than no campaign. A role model that's too broad grants excessive access to every user who matches. An aggregation task that fails silently means access decisions are being made on stale data. SailPoint must be governed as carefully as the identities it governs.
+
+This pack configures SailPoint IIQ for enterprise identity governance: role modeling, lifecycle automation, access certifications, policy enforcement, and integration with Entra ID as the downstream identity provider.
+
+> **Watchstander Note:** SailPoint is the enterprise-grade answer to identity governance at scale. But enterprise-grade tools require enterprise-grade discipline. The most common SailPoint failure isn't a misconfiguration — it's a certification campaign that runs on schedule, produces results, and gets approved without anyone actually reviewing the access. The tooling works. The governance question is whether anyone is watching.
 
 ---
 
@@ -190,15 +202,17 @@ graph TD
 | [`iiq-operations-runbook.md`](docs/iiq-operations-runbook.md) | Full IIQ operations SOP |
 | [`control-mapping.md`](docs/control-mapping.md) | NIST / SOX / CMMC alignment |
 
-### `screenshots/` — Portal Evidence
+### `screenshots/` — Evidence
 
-| # | What It Shows |
-|---|--------------|
-| 01 | IIQ Dashboard: identities, certifications, violations summary |
-| 02 | Lifecycle event execution: joiner provisioning |
-| 03 | Certification campaign: manager decisions |
-| 04 | SOD violation: detected and blocked |
-| 05 | Provisioning audit trail |
+This pack uses **deterministic engine outputs** as primary evidence rather than portal screenshots.
+
+| Evidence Type | Format | Purpose |
+|--------------|--------|---------|
+| Engine output (`.txt`) | Script terminal output | Primary — proves logic and methodology |
+| Report output (`.md`) | Formatted engine report | Primary — proves analysis and findings |
+| Portal screenshot (`.png`) | Azure portal capture | Secondary — added when running against live environment |
+
+> See `EVIDENCE-README.md` in the screenshots directory for the full evidence approach.
 
 ---
 

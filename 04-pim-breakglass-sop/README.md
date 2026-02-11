@@ -2,9 +2,6 @@
 
 > Privileged Identity Management configuration with tested emergency access procedures
 
-[![Cert](https://img.shields.io/badge/cert-SC--300-0078D4?style=flat-square&logo=microsoft)](https://learn.microsoft.com/en-us/credentials/certifications/identity-and-access-administrator/)
-[![Cert](https://img.shields.io/badge/cert-AZ--500-0078D4?style=flat-square&logo=microsoft)](https://learn.microsoft.com/en-us/credentials/certifications/azure-security-engineer/)
-[![Cert](https://img.shields.io/badge/cert-Entra_Governance-0078D4?style=flat-square&logo=microsoft)]()
 [![Controls](https://img.shields.io/badge/Expected_vs_Observed-10_controls-8957e5?style=flat-square)]()
 [![Framework](https://img.shields.io/badge/framework-Zero_Standing_Privilege-ff6b35?style=flat-square)]()
 
@@ -18,6 +15,20 @@
 | **Consulting Client** | [`expected-vs-observed.md`](docs/expected-vs-observed.md) — if your admins have permanent Global Admin, the gap is your engagement |
 | **Auditor / GRC** | [`expected-vs-observed.md`](docs/expected-vs-observed.md) then [`control-mapping.md`](docs/control-mapping.md) — NIST AC-6, AC-2(7), CP-2 alignment |
 | **Engineer** | [`/code/`](code/) for PIM config JSON then [`pim-operations-runbook.md`](docs/pim-operations-runbook.md) + [`breakglass-sop.md`](docs/breakglass-sop.md) |
+
+---
+
+## The Problem
+
+In most organizations, Global Administrators are standing privileges. Someone was made a Global Admin during initial setup, and they've been a Global Admin ever since. They don't need it daily. They might not need it weekly. But they have it constantly — and every minute they hold that privilege is a minute an attacker who compromises their account also holds it.
+
+Standing privilege is the amplifier behind every major breach. The initial compromise is usually unremarkable — a phished credential, a leaked token, a session hijack. What makes it catastrophic is what happens next: the compromised account has standing access to everything. No elevation required. No approval needed. No time limit.
+
+Privileged Identity Management eliminates standing access by making elevation just-in-time, time-bounded, and approval-required. You don't have Global Admin. You activate Global Admin for 2 hours, with justification, with approval, with an audit trail. When the 2 hours expire, the privilege disappears. The blast radius shrinks from permanent to measured.
+
+But there's a trap: if PIM governs all admin access and PIM itself breaks — a configuration error, a service outage, an Entra ID incident — nobody can administer the tenant. Break-glass accounts exist for this scenario. They bypass PIM, bypass Conditional Access, and carry permanent Global Admin. They are the most dangerous accounts in your environment, and they must be the most carefully governed.
+
+> **Watchstander Note:** Break-glass accounts are like fire axes behind glass. They exist for emergencies. They must be tested to prove they work. And if the glass is broken without a fire, that event must be investigated immediately. An untested break-glass account is a promise you can't keep. A used break-glass account without documentation is a potential compromise.
 
 ---
 
@@ -170,12 +181,17 @@ graph TD
 | [`breakglass-sop.md`](docs/breakglass-sop.md) | Break-glass SOP: creation, storage, monthly test, emergency activation, post-incident |
 | [`control-mapping.md`](docs/control-mapping.md) | NIST / CIS / CMMC alignment |
 
-### `screenshots/` — Portal Evidence
+### `screenshots/` — Evidence
 
-| # | What It Shows |
-|---|--------------|
-| 01 | PIM roles: eligible vs active (zero standing admin) |
-| 02-08 | Role settings, activation, approval, audit, break-glass config, alert, test log |
+This pack uses **deterministic engine outputs** as primary evidence rather than portal screenshots.
+
+| Evidence Type | Format | Purpose |
+|--------------|--------|---------|
+| Engine output (`.txt`) | Script terminal output | Primary — proves logic and methodology |
+| Report output (`.md`) | Formatted engine report | Primary — proves analysis and findings |
+| Portal screenshot (`.png`) | Azure portal capture | Secondary — added when running against live environment |
+
+> See `EVIDENCE-README.md` in the screenshots directory for the full evidence approach.
 
 ---
 

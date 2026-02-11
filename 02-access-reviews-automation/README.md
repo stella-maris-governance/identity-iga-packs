@@ -2,8 +2,6 @@
 
 > Automated Entra ID Access Reviews for group memberships, app assignments, PIM roles, and guest access
 
-[![Cert](https://img.shields.io/badge/cert-SC--300-0078D4?style=flat-square&logo=microsoft)](https://learn.microsoft.com/en-us/credentials/certifications/identity-and-access-administrator/)
-[![Cert](https://img.shields.io/badge/cert-SailPoint_ISL-0033A0?style=flat-square)]()
 [![Controls](https://img.shields.io/badge/Expected_vs_Observed-10_controls-8957e5?style=flat-square)]()
 [![Framework](https://img.shields.io/badge/framework-Identity_Governance-ff6b35?style=flat-square)]()
 
@@ -17,6 +15,22 @@
 | **Consulting Client** | [`expected-vs-observed.md`](docs/expected-vs-observed.md) — if your org does annual spreadsheet reviews or none at all, the gap is your engagement |
 | **Auditor / GRC** | [`expected-vs-observed.md`](docs/expected-vs-observed.md) then [`control-mapping.md`](docs/control-mapping.md) — NIST AC-2(7), AC-6(7) alignment with auto-revoke evidence |
 | **Engineer** | [`/code/`](code/) for access review definitions then [`access-reviews-runbook.md`](docs/access-reviews-runbook.md) |
+
+---
+
+## The Problem
+
+Access reviews are the audit control that everyone hates and nobody does well.
+
+Here's what happens in most organizations: once a quarter, a manager receives an email with a spreadsheet of 47 people and their access. The manager glances at it, recognizes most of the names, clicks "approve all," and goes back to their actual job. The review is "complete." The audit box is checked. Nothing was actually reviewed.
+
+This is rubber-stamping, and it is worse than no review at all. A review that never happens is an honest gap. A review that happens but changes nothing is a false assurance — the organization believes access is validated when it isn't.
+
+The real cost shows up six months later when an auditor asks: "Why does a contractor who left in March still have access to your financial reporting application?" The answer is always the same: "The manager approved it in the quarterly review." Nobody looked. Everybody approved. The process existed. The governance didn't.
+
+Automated access reviews solve this by making non-response a revocation event, not an implicit approval. If a reviewer doesn't respond, access is removed. That single policy change transforms reviews from theater into governance.
+
+> **Watchstander Note:** The most dangerous word in access governance is "approved." It implies someone evaluated and decided. In practice, it usually means someone clicked a button. This pack makes the distinction visible — and makes inaction have consequences.
 
 ---
 
@@ -155,16 +169,17 @@ This is the most critical design decision: **non-response = deny.** This elimina
 | [`access-reviews-runbook.md`](docs/access-reviews-runbook.md) | Full operations SOP |
 | [`control-mapping.md`](docs/control-mapping.md) | NIST / CIS / CMMC / SOX alignment |
 
-### `screenshots/` — Portal Evidence
+### `screenshots/` — Evidence
 
-| # | What It Shows |
-|---|--------------|
-| 01 | Access reviews dashboard: all 4 reviews with completion rates |
-| 02 | Group review: reviewer decisions (approve/deny) with justifications |
-| 03 | PIM review: eligible role certifications |
-| 04 | Guest review: monthly review with auto-revoke results |
-| 05 | Review results export: full decision log |
-| 06 | Auto-revoke evidence: access removed after non-response |
+This pack uses **deterministic engine outputs** as primary evidence rather than portal screenshots.
+
+| Evidence Type | Format | Purpose |
+|--------------|--------|---------|
+| Engine output (`.txt`) | Script terminal output | Primary — proves logic and methodology |
+| Report output (`.md`) | Formatted engine report | Primary — proves analysis and findings |
+| Portal screenshot (`.png`) | Azure portal capture | Secondary — added when running against live environment |
+
+> See `EVIDENCE-README.md` in the screenshots directory for the full evidence approach.
 
 ---
 

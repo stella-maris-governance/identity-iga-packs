@@ -2,8 +2,6 @@
 
 > Role-conflict detection and enforcement for privileged Entra ID roles and business-critical application access
 
-[![Cert](https://img.shields.io/badge/cert-SC--300-0078D4?style=flat-square&logo=microsoft)](https://learn.microsoft.com/en-us/credentials/certifications/identity-and-access-administrator/)
-[![Cert](https://img.shields.io/badge/cert-SailPoint_ISL-0033A0?style=flat-square)]()
 [![Controls](https://img.shields.io/badge/Expected_vs_Observed-10_controls-8957e5?style=flat-square)]()
 [![Framework](https://img.shields.io/badge/framework-SoD_Governance-ff6b35?style=flat-square)]()
 
@@ -17,6 +15,20 @@
 | **Consulting Client** | [`expected-vs-observed.md`](docs/expected-vs-observed.md) — if nobody has mapped your role conflicts, the gap is your engagement |
 | **Auditor / GRC** | [`expected-vs-observed.md`](docs/expected-vs-observed.md) then [`control-mapping.md`](docs/control-mapping.md) — NIST AC-5, AC-6(1), SOX segregation alignment |
 | **Engineer** | [`/code/`](code/) for conflict matrix JSON + detection KQL then [`sod-operations-runbook.md`](docs/sod-operations-runbook.md) |
+
+---
+
+## The Problem
+
+An IT administrator who can both create user accounts and approve access requests can create a ghost account and grant it access to anything. A finance user who can both initiate payments and approve them can pay themselves. A security admin who can both configure audit logs and delete them can cover their tracks.
+
+These aren't theoretical risks. They're the exact role combinations that fraud examiners look for in every investigation. Separation of Duties exists to ensure that no single person can complete a high-risk action without a second person's involvement. It's the same principle behind dual-key nuclear launch and two-person integrity in classified material handling: trust is not a single point of failure.
+
+In cloud environments, SoD violations are invisible until they're exploited. Entra ID doesn't natively prevent someone from holding User Administrator and Application Administrator simultaneously. Azure RBAC doesn't warn you when someone has both Contributor and Security Admin on the same subscription. These combinations accumulate silently through role assignments, group memberships, and PIM activations that nobody cross-references.
+
+This pack builds the cross-reference. Every privileged role combination is evaluated against a conflict matrix. Every violation is detected, documented, and either remediated or accepted with compensating controls. No silent accumulation. No invisible conflicts.
+
+> **Watchstander Note:** In Navy supply chain operations, two-person integrity wasn't optional — it was policy for handling classified material, crypto keys, and financial transactions. The same principle applies to digital role assignments. If one person can both create the access and approve the access, your governance has a single point of compromise.
 
 ---
 
@@ -166,14 +178,17 @@ All SoD exceptions require:
 | [`sod-operations-runbook.md`](docs/sod-operations-runbook.md) | Full SoD operations SOP |
 | [`control-mapping.md`](docs/control-mapping.md) | NIST / CIS / CMMC / SOX alignment |
 
-### `screenshots/` — Portal Evidence
+### `screenshots/` — Evidence
 
-| # | What It Shows |
-|---|--------------|
-| 01 | SoD scan results: current violations (or clean scan) |
-| 02 | PIM role assignments mapped against conflict matrix |
-| 03 | Exception register with active exceptions |
-| 04 | Sentinel analytics rule for weekly SoD scan |
+This pack uses **deterministic engine outputs** as primary evidence rather than portal screenshots.
+
+| Evidence Type | Format | Purpose |
+|--------------|--------|---------|
+| Engine output (`.txt`) | Script terminal output | Primary — proves logic and methodology |
+| Report output (`.md`) | Formatted engine report | Primary — proves analysis and findings |
+| Portal screenshot (`.png`) | Azure portal capture | Secondary — added when running against live environment |
+
+> See `EVIDENCE-README.md` in the screenshots directory for the full evidence approach.
 
 ---
 

@@ -188,15 +188,17 @@ These are hunting queries run proactively. Not real-time alerts.
 | [`itdr-operations-runbook.md`](docs/itdr-operations-runbook.md) | Full ITDR operations SOP |
 | [`control-mapping.md`](docs/control-mapping.md) | NIST / CIS / CMMC alignment |
 
-### `screenshots/` — Portal Evidence
+### `screenshots/` — Evidence
 
-| # | What It Shows |
-|---|--------------|
-| 01 | Sentinel analytics rules: ITDR rules active |
-| 02 | Entra ID Protection: risk policy configuration |
-| 03 | Incident timeline: detection → containment |
-| 04 | Playbook execution: auto-revoke evidence |
-| 05 | MTTD/MTTR dashboard |
+This pack uses **deterministic engine outputs** as primary evidence rather than portal screenshots.
+
+| Evidence Type | Format | Purpose |
+|--------------|--------|---------|
+| Engine output (`.txt`) | Script terminal output | Primary — proves logic and methodology |
+| Report output (`.md`) | Formatted engine report | Primary — proves analysis and findings |
+| Portal screenshot (`.png`) | Azure portal capture | Secondary — added when running against live environment |
+
+> See `EVIDENCE-README.md` in the screenshots directory for the full evidence approach.
 
 ---
 

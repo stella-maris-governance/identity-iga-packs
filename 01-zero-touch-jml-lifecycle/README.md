@@ -2,8 +2,6 @@
 
 > Automated Joiner / Mover / Leaver lifecycle using Entra ID Lifecycle Workflows and dynamic groups
 
-[![Cert](https://img.shields.io/badge/cert-SC--300-0078D4?style=flat-square&logo=microsoft)](https://learn.microsoft.com/en-us/credentials/certifications/identity-and-access-administrator/)
-[![Cert](https://img.shields.io/badge/cert-SailPoint_ISL-0033A0?style=flat-square)]()
 [![Controls](https://img.shields.io/badge/Expected_vs_Observed-10_controls-8957e5?style=flat-square)]()
 [![Framework](https://img.shields.io/badge/framework-Identity_Governance-ff6b35?style=flat-square)]()
 
@@ -17,6 +15,20 @@
 | **Consulting Client** | [`expected-vs-observed.md`](docs/expected-vs-observed.md) — if your org still manually provisions and deprovisions users, the gap is your engagement |
 | **Auditor / GRC** | [`expected-vs-observed.md`](docs/expected-vs-observed.md) then [`control-mapping.md`](docs/control-mapping.md) — NIST AC-2, PS-4, PE-2 alignment |
 | **Engineer** | [`/code/`](code/) for lifecycle workflow JSON + dynamic group rules then [`jml-operations-runbook.md`](docs/jml-operations-runbook.md) |
+
+---
+
+## The Problem
+
+On Day 1, a new hire sits down and can't log in. IT creates a ticket. The ticket sits in a queue. By 10 AM, the hiring manager is calling the help desk. By noon, someone manually provisions an account, guesses at the right group memberships, and hopes they got it right. The new hire loses a day. The audit trail is a Slack message that says "can you set up jdoe?"
+
+On the last day, a terminated employee walks out with active credentials. Their account stays live for three days — or three weeks — because nobody told IT, or IT forgot, or the offboarding checklist lives in a spreadsheet that nobody checks. During those three days, every system that employee could access is exposed. In regulated environments, that's not a process gap. It's a finding.
+
+Between Day 1 and the last day, an employee changes departments. Their old access stays. Their new access stacks on top. After three transfers, they have access to Finance, Engineering, and HR — a separation of duties violation that nobody sees because nobody reviews.
+
+Manual provisioning is the root cause of orphaned accounts, access drift, and audit findings. This pack eliminates all three by making every access decision attribute-driven, every lifecycle event automated, and every change logged.
+
+> **Watchstander Note:** In Navy credential management, a missed deprovisioning meant potential unauthorized access to classified systems for 3,500+ personnel. The discipline we built there — zero orphaned accounts across 2,200+ credential lifecycles — is the same discipline encoded in these workflows. The tooling changed. The standard didn't.
 
 ---
 
@@ -182,16 +194,17 @@ All access is driven by attributes, not manual assignment. When HR changes a dep
 | [`jml-operations-runbook.md`](docs/jml-operations-runbook.md) | Full JML operations SOP |
 | [`control-mapping.md`](docs/control-mapping.md) | NIST / CIS / CMMC alignment |
 
-### `screenshots/` — Portal Evidence
+### `screenshots/` — Evidence
 
-| # | What It Shows |
-|---|--------------|
-| 01 | Lifecycle workflows list (Joiner, Mover, Leaver active) |
-| 02 | Joiner workflow tasks and execution history |
-| 03 | Leaver workflow tasks and execution history |
-| 04 | Dynamic group membership rules |
-| 05 | Dynamic group processing log (member added/removed) |
-| 06 | User provisioning log (attribute flow from HR) |
+This pack uses **deterministic engine outputs** as primary evidence rather than portal screenshots.
+
+| Evidence Type | Format | Purpose |
+|--------------|--------|---------|
+| Engine output (`.txt`) | Script terminal output | Primary — proves logic and methodology |
+| Report output (`.md`) | Formatted engine report | Primary — proves analysis and findings |
+| Portal screenshot (`.png`) | Azure portal capture | Secondary — added when running against live environment |
+
+> See `EVIDENCE-README.md` in the screenshots directory for the full evidence approach.
 
 ---
 
