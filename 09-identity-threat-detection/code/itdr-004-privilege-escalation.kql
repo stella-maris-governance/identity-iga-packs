@@ -1,0 +1,25 @@
+// ITDR-004: Privilege Escalation Outside PIM
+// Tier 2: Detects direct role assignment bypassing PIM workflow
+// Alert SOC within 30 minutes
+
+AuditLogs
+| where TimeGenerated > ago(15m)
+| where OperationName == "Add member to role"
+| where Category == "RoleManagement"
+| extend TargetUser = tostring(TargetResources[0].userPrincipalName)
+| extend RoleName = tostring(TargetResources[0].modifiedProperties[1].newValue)
+| extend InitiatedBy = tostring(InitiatedBy.user.userPrincipalName)
+// Exclude PIM-initiated assignments (these have a specific service principal)
+| where InitiatedBy !has "PIM" and InitiatedBy !has "MS-PIM"
+// Focus on high-privilege roles
+| where RoleName has_any ("Global Administrator", "Security Administrator",
+    "Privileged Role Administrator", "Exchange Administrator",
+    "User Administrator", "Application Administrator")
+| project
+    TimeGenerated,
+    TargetUser,
+    RoleName,
+    InitiatedBy,
+    OperationName,
+    CorrelationId
+| sort by TimeGenerated desc

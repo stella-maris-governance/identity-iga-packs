@@ -1,0 +1,20 @@
+// ITDR-001: Confirmed Compromised Account — Auto-Response Trigger
+// Tier 1: High confidence. Triggers playbook-revoke-contain.
+// Detects Entra ID Protection high-risk user events
+
+SecurityAlert
+| where TimeGenerated > ago(15m)
+| where ProviderName == "IPC"  // Identity Protection
+| where AlertSeverity == "High"
+| extend UserPrincipalName = tostring(parse_json(ExtendedProperties).["User Account"])
+| extend RiskLevel = tostring(parse_json(ExtendedProperties).["Risk Level"])
+| where RiskLevel == "high"
+| project
+    TimeGenerated,
+    AlertName,
+    UserPrincipalName,
+    RiskLevel,
+    Description,
+    RemediationSteps,
+    AlertLink
+| sort by TimeGenerated desc

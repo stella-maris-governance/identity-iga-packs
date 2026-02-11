@@ -1,0 +1,33 @@
+// ITDR-006: Service Principal Behavioral Anomaly
+// Tier 2: SP uses new permission category or activity exceeds 3x baseline
+// Correlates with CIEM Pack 08 alerts
+
+let baselineWindow = 30d;
+let recentWindow = 1d;
+//
+// Baseline: normal SP activity volume
+let spBaseline = AzureActivity
+| where TimeGenerated between (ago(baselineWindow) .. ago(recentWindow))
+| where Identity has "ServicePrincipal" or Caller has_any ("-sp-", "svc-")
+| summarize BaselineActions = count() by Caller
+| extend DailyBaseline = BaselineActions / 30.0;
+//
+// Recent: last 24 hours
+let spRecent = AzureActivity
+| where TimeGenerated > ago(recentWindow)
+| where Identity has "ServicePrincipal" or Caller has_any ("-sp-", "svc-")
+| summarize RecentActions = count(), DistinctOperations = dcount(OperationNameValue) by Caller;
+//
+// Anomaly: recent activity > 3x daily baseline
+spRecent
+| join kind=inner (spBaseline) on Caller
+| where RecentActions > (DailyBaseline * 3)
+| extend AnomalyRatio = round(RecentActions / DailyBaseline, 1)
+| project
+    Caller,
+    RecentActions,
+    DailyBaseline = round(DailyBaseline, 1),
+    AnomalyRatio,
+    DistinctOperations,
+    AlertReason = strcat("Activity ", AnomalyRatio, "x baseline")
+| sort by AnomalyRatio desc

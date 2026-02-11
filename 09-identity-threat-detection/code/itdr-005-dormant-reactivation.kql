@@ -1,0 +1,29 @@
+// ITDR-005: Dormant Account Reactivation
+// Tier 2: Detects sign-in from account inactive > 90 days
+// Could indicate compromised credential on forgotten account
+
+let dormancyThreshold = 90d;
+let recentWindow = 1d;
+//
+// Find accounts that signed in recently
+let recentSignIns = SigninLogs
+| where TimeGenerated > ago(recentWindow)
+| where ResultType == 0  // Successful sign-in
+| distinct UserPrincipalName;
+//
+// Find accounts with no sign-in in dormancy period (before recent window)
+let dormantAccounts = SigninLogs
+| where TimeGenerated between (ago(dormancyThreshold + recentWindow) .. ago(recentWindow))
+| summarize LastSignIn = max(TimeGenerated) by UserPrincipalName
+| where LastSignIn < ago(dormancyThreshold);
+//
+// Intersection: dormant accounts that suddenly signed in
+recentSignIns
+| join kind=inner (dormantAccounts) on UserPrincipalName
+| extend DaysDormant = datetime_diff('day', ago(recentWindow), LastSignIn)
+| project
+    UserPrincipalName,
+    DaysDormant,
+    LastSignIn,
+    AlertReason = strcat("Account dormant for ", DaysDormant, " days — sudden reactivation")
+| sort by DaysDormant desc

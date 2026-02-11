@@ -1,0 +1,76 @@
+{
+  "_metadata": {
+    "pack": "identity-threat-detection",
+    "version": "1.0.0",
+    "description": "Sentinel playbook (Logic App): auto-revoke sessions and disable account on Tier 1 identity threat."
+  },
+  "definition": {
+    "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+    "triggers": {
+      "Microsoft_Sentinel_incident": {
+        "type": "ApiConnectionWebhook",
+        "inputs": {
+          "body": {"incidentArmId": "@triggerBody()?['object']?['id']"},
+          "host": {"connection": {"name": "@parameters('$connections')['azuresentinel']['connectionId']"}},
+          "path": "/incident-creation"
+        }
+      }
+    },
+    "actions": {
+      "Step_1_Get_User": {
+        "type": "ApiConnection",
+        "inputs": {
+          "method": "get",
+          "path": "/v1.0/users/@{body('Parse_Entities')?['userPrincipalName']}",
+          "host": {"connection": {"name": "@parameters('$connections')['microsoftgraph']['connectionId']"}}
+        },
+        "runAfter": {"Parse_Entities": ["Succeeded"]}
+      },
+      "Step_2_Disable_Account": {
+        "type": "ApiConnection",
+        "inputs": {
+          "method": "patch",
+          "path": "/v1.0/users/@{body('Step_1_Get_User')?['id']}",
+          "body": {"accountEnabled": false},
+          "host": {"connection": {"name": "@parameters('$connections')['microsoftgraph']['connectionId']"}}
+        },
+        "runAfter": {"Step_1_Get_User": ["Succeeded"]}
+      },
+      "Step_3_Revoke_Sessions": {
+        "type": "ApiConnection",
+        "inputs": {
+          "method": "post",
+          "path": "/v1.0/users/@{body('Step_1_Get_User')?['id']}/revokeSignInSessions",
+          "host": {"connection": {"name": "@parameters('$connections')['microsoftgraph']['connectionId']"}}
+        },
+        "runAfter": {"Step_2_Disable_Account": ["Succeeded"]}
+      },
+      "Step_4_Email_SOC": {
+        "type": "ApiConnection",
+        "inputs": {
+          "method": "post",
+          "path": "/v2/Mail",
+          "body": {
+            "To": "soc@stellamarisgovernance.com",
+            "Subject": "ITDR AUTO-CONTAIN: @{body('Step_1_Get_User')?['userPrincipalName']}",
+            "Body": "Account disabled and sessions revoked. Incident: @{triggerBody()?['object']?['properties']?['title']}. Investigate immediately."
+          }
+        },
+        "runAfter": {"Step_3_Revoke_Sessions": ["Succeeded"]}
+      },
+      "Step_5_Teams_Notification": {
+        "type": "ApiConnection",
+        "inputs": {
+          "method": "post",
+          "path": "/v1.0/teams/{{SOC_TEAM_ID}}/channels/{{SOC_CHANNEL_ID}}/messages",
+          "body": {
+            "body": {
+              "content": "🚨 AUTO-CONTAIN: @{body('Step_1_Get_User')?['userPrincipalName']} disabled + sessions revoked. Investigate now."
+            }
+          }
+        },
+        "runAfter": {"Step_4_Email_SOC": ["Succeeded"]}
+      }
+    }
+  }
+}

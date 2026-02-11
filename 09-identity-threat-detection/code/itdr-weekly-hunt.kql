@@ -1,0 +1,50 @@
+// ITDR Weekly Hunting Queries (Tier 3)
+// Run every Monday at 0900 UTC
+// Document results even if zero findings
+
+// === ITDR-007: Stale Credential Usage ===
+// Service principals with credentials > 365 days old
+// print "=== ITDR-007: Stale Credentials ==="
+AuditLogs
+| where TimeGenerated > ago(7d)
+| where OperationName has "Update application" or OperationName has "Update service principal"
+| where TargetResources[0].type == "ServicePrincipal"
+| extend SPName = tostring(TargetResources[0].displayName)
+| extend ModifiedProp = tostring(TargetResources[0].modifiedProperties)
+| where ModifiedProp has "Credentials"
+| project TimeGenerated, SPName, OperationName, ModifiedProp;
+
+// === ITDR-008: Token Replay Indicators ===
+// Same token used from different IPs in short window
+// print "=== ITDR-008: Token Replay ==="
+SigninLogs
+| where TimeGenerated > ago(7d)
+| where ResultType == 0
+| summarize
+    DistinctIPs = dcount(IPAddress),
+    IPs = make_set(IPAddress, 5)
+    by UserPrincipalName, UniqueTokenIdentifier, bin(TimeGenerated, 5m)
+| where DistinctIPs > 1
+| project TimeGenerated, UserPrincipalName, DistinctIPs, IPs;
+
+// === ITDR-009: Suspicious OAuth Consent Grants ===
+// User consented to app requesting high-privilege permissions
+// print "=== ITDR-009: Consent Grants ==="
+AuditLogs
+| where TimeGenerated > ago(7d)
+| where OperationName == "Consent to application"
+| extend ConsentedApp = tostring(TargetResources[0].displayName)
+| extend Permissions = tostring(TargetResources[0].modifiedProperties[4].newValue)
+| where Permissions has_any ("Mail.Read", "Files.ReadWrite", "Directory.ReadWrite", "User.ReadWrite.All")
+| project TimeGenerated, InitiatedBy = tostring(InitiatedBy.user.userPrincipalName),
+    ConsentedApp, Permissions;
+
+// === ITDR-010: Cross-Tenant Lateral Movement ===
+// Guest account shows anomalous activity in our tenant
+// print "=== ITDR-010: Cross-Tenant Movement ==="
+SigninLogs
+| where TimeGenerated > ago(7d)
+| where UserType == "Guest"
+| where RiskLevelDuringSignIn in ("medium", "high")
+| project TimeGenerated, UserPrincipalName, IPAddress,
+    RiskLevel = RiskLevelDuringSignIn, Location = LocationDetails

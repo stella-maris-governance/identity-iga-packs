@@ -1,0 +1,47 @@
+graph TD
+    subgraph SIGNALS["Identity Signals"]
+        SIGNIN["Sign-in Logs"]
+        AUDIT["Audit Logs"]
+        RISK["ID Protection Risk"]
+        UEBA["UEBA Baselines"]
+        PIM_LOG["PIM Activations"]
+    end
+
+    subgraph DETECT["Detection Tiers"]
+        T1["Tier 1: Auto-Contain"]
+        T2["Tier 2: Alert + Investigate"]
+        T3["Tier 3: Weekly Hunt"]
+        FUSION["Fusion ML"]
+    end
+
+    subgraph RESPOND["Response"]
+        PLAYBOOK["Auto-Revoke Playbook"]
+        SOC["SOC Investigation"]
+        HUNT["Hunting Analysis"]
+    end
+
+    subgraph EVIDENCE["Evidence"]
+        TIMELINE["Incident Timeline"]
+        METRICS["MTTD / MTTR"]
+        HUNT_LOG["Hunt Results"]
+        EVO["Expected vs Observed"]
+    end
+
+    SIGNIN --> T1
+    SIGNIN --> T2
+    RISK --> T1
+    AUDIT --> T2
+    UEBA --> T2
+    SIGNIN --> T3
+    AUDIT --> T3
+    PIM_LOG --> T2
+    SIGNIN --> FUSION
+
+    T1 --> PLAYBOOK
+    T2 --> SOC
+    T3 --> HUNT
+    FUSION --> SOC
+
+    TIMELINE --> EVO
+    METRICS --> EVO
+    HUNT_LOG --> EVO
