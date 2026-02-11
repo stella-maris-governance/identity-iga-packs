@@ -7,6 +7,10 @@
 
 ---
 
+> **Governance Notice** — This pack is governed by the [Stella Maris Constitution (CONST-01)](https://github.com/stella-maris-governance/smg-enterprise-hq) and enforces **POL-AC-01 (Access Control) · NIST AC-6(1)**. All dispositions are subject to the Two-Person Integrity Protocol.
+
+---
+
 ## Start Here
 
 | You Are | Read This First |
