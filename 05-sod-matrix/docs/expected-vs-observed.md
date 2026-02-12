@@ -155,7 +155,7 @@
 
 ## Assessment Notes
 
-1. **Intentional partial (control 2):** The SOD-001 exception is real and honest. In a lab tenant with one administrator, holding both GA and Security Admin eligible is operationally necessary. The compensating controls (PIM with MFA + justification, weekly audit review, activation alerts) are robust. In a production environment with multiple admins, this would be remediated by assigning different people.
+1. **Intentional partial (control 2):** The SOD-001 exception is real and honest. In a lab tenant with one administrator, holding both GA and Security Admin eligible is operationally necessary. The compensating controls (PIM with MFA + justification, weekly audit review, activation alerts) are sufficient. In a production environment with multiple admins, this would be remediated by assigning different people.
 
 2. **Eligible assignments count as violations.** This is a critical design choice. A user who is eligible for two conflicting roles has the capability to activate both simultaneously. Detection must cover PIM eligible, not just active.
 
