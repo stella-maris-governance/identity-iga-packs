@@ -1,6 +1,6 @@
 # Identity Threat Detection & Response Pack
 
-> Detect, investigate, and respond to identity-based attacks — compromised credentials, lateral movement, and privilege escalation before the blast radius expands
+> Identity Threat Detection & Response (ITDR) — detect, investigate, and respond to identity-based attacks before the blast radius expands. The Zero Trust principle of **Assume Breach** applied to every authentication event.
 
 [![Controls](https://img.shields.io/badge/Expected_vs_Observed-10_controls-8957e5?style=flat-square)]()
 [![Framework](https://img.shields.io/badge/framework-ITDR-ff6b35?style=flat-square)]()

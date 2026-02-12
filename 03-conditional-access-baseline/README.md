@@ -38,11 +38,11 @@ Most organizations implement MFA and call it done. MFA is one layer. A complete 
 
 ## Overview
 
-This pack delivers a **complete 10-policy Conditional Access baseline** for Microsoft Entra ID. It covers MFA enforcement, legacy authentication blocking, device compliance, risk-based controls, session management, guest access governance, and phishing-resistant authentication for administrators.
+This pack delivers a **complete 10-policy Conditional Access baseline** for Microsoft Entra ID — a signal-based access evaluation engine that makes grant/block decisions based on user identity, device state, location, risk level, and application sensitivity. It covers MFA enforcement, legacy authentication blocking, device compliance, risk-based controls, session management, guest access governance, and phishing-resistant authentication for administrators.
 
 All policies follow Microsoft's recommended naming convention and are deployable via JSON export/import or PowerShell automation.
 
-**Business Value:** Establishes Zero Trust access controls from day one. Maps directly to NIST 800-53 IA/AC control families, CIS Azure Benchmark 1.1.x, and CMMC Level 2 practices. Provides audit-ready policy documentation with full evidence chain.
+**Business Value:** Implements the **Verify Explicitly** principle of Zero Trust Architecture (ZTA) — every access request is evaluated against multiple signals before a grant decision is made. Maps directly to NIST 800-53 IA/AC control families, CIS Azure Benchmark 1.1.x, and CMMC Level 2 practices. Provides audit-ready policy documentation with full evidence chain.
 
 **Operational Context:** Informed by real-world credential governance for 2,200+ CAC/PKI credentials with zero-incident accountability across a regulated population of 3,500+ personnel.
 

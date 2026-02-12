@@ -1,6 +1,6 @@
 # Entra Permissions Management Pack
 
-> Cloud Infrastructure Entitlement Management — discover, right-size, and monitor permissions across Azure, AWS, and GCP
+> Cloud Infrastructure Entitlement Management (CIEM) — discover, right-size, and monitor permissions across Azure, AWS, and GCP. The Zero Trust principle of **Use Least Privilege** applied to every cloud identity at scale.
 
 [![Controls](https://img.shields.io/badge/Expected_vs_Observed-10_controls-8957e5?style=flat-square)]()
 [![Framework](https://img.shields.io/badge/framework-CIEM-ff6b35?style=flat-square)]()

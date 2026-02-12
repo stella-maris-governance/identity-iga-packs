@@ -28,7 +28,7 @@ In most organizations, Global Administrators are standing privileges. Someone wa
 
 Standing privilege is the amplifier behind every major breach. The initial compromise is usually unremarkable — a phished credential, a leaked token, a session hijack. What makes it catastrophic is what happens next: the compromised account has standing access to everything. No elevation required. No approval needed. No time limit.
 
-Privileged Identity Management eliminates standing access by making elevation just-in-time, time-bounded, and approval-required. You don't have Global Admin. You activate Global Admin for 2 hours, with justification, with approval, with an audit trail. When the 2 hours expire, the privilege disappears. The blast radius shrinks from permanent to measured.
+Privileged Identity Management enforces the **Use Least Privilege** principle of Zero Trust Architecture by eliminating standing access — making every elevation just-in-time, time-bounded, and approval-required. You don't have Global Admin. You activate Global Admin for 2 hours, with justification, with approval, with an audit trail. When the 2 hours expire, the privilege disappears. The blast radius shrinks from permanent to measured.
 
 But there's a trap: if PIM governs all admin access and PIM itself breaks — a configuration error, a service outage, an Entra ID incident — nobody can administer the tenant. Break-glass accounts exist for this scenario. They bypass PIM, bypass Conditional Access, and carry permanent Global Admin. They are the most dangerous accounts in your environment, and they must be the most carefully governed.
 
