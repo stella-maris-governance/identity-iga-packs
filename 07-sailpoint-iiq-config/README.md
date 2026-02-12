@@ -24,7 +24,7 @@
 
 ## The Problem
 
-Entra ID Lifecycle Workflows handle identity governance for organizations with hundreds of users and straightforward access patterns. But when the population grows to thousands, when access decisions depend on business logic that can't be expressed in dynamic group rules, when role mining reveals 400 unique access combinations that need to be rationalized into 30 enterprise roles, when certification campaigns span 10,000 entitlements across 200 applications — native cloud tooling hits its ceiling.
+Entra ID Lifecycle Workflows handle identity governance for organizations with hundreds of users and simple access patterns. But when the population grows to thousands, when access decisions depend on business logic that can't be expressed in dynamic group rules, when role mining reveals 400 unique access combinations that need to be rationalized into 30 enterprise roles, when certification campaigns span 10,000 entitlements across 200 applications — native cloud tooling hits its ceiling.
 
 SailPoint IdentityIQ exists for this scale. It's not a replacement for Entra ID — it's the orchestration layer that sits above it. Where Entra ID manages authentication and basic lifecycle, SailPoint manages the complex identity governance decisions: who should have access to what, based on what role, approved by whom, reviewed on what cadence, with what risk score.
 

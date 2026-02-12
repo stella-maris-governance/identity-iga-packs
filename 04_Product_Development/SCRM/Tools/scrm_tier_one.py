@@ -10,7 +10,7 @@ Implements NIST 800-161 aligned scoring with:
   - Vendor Risk Passport generation (Markdown)
   - Evidence bundle generation (JSON, AO-sealable)
 
-Team: Atlas (Architect) | North Star (Auditor) | Regina (AO)
+Team: Robert Myers (Principal) | CoS (Internal Auditor) | AO (Authorizing Official)
 Author: Robert Myers, MBA | Stella Maris Governance
 References: NIST SP 800-161 Rev 1, NIST SP 800-53 Rev 5 SA-9/SR-3
 """
@@ -416,7 +416,7 @@ def generate_passport(result: dict) -> str:
 
     if not result["justification_complete"]:
         lines.append("")
-        lines.append(f"> ⚠️  **AUDIT WARNING:** Justification coverage is {result['justification_coverage']}. Unjustified subfactors will be flagged by North Star during audit review.")
+        lines.append(f"> ⚠️  **AUDIT WARNING:** Justification coverage is {result['justification_coverage']}. Unjustified subfactors will be flagged by the Auditor during audit review.")
 
     lines.append("")
     lines.append("---")
@@ -497,9 +497,9 @@ def generate_passport(result: dict) -> str:
     lines.append(f"| **CUI Boundary** | Enforced |")
     lines.append(f"| **Justification Coverage** | {result['justification_coverage']} |")
     lines.append(f"| | |")
-    lines.append(f"| **Prepared by (Atlas)** | ______________________________ |")
+    lines.append(f"| **Prepared by (Architect)** | ______________________________ |")
     lines.append(f"| **Reviewed by (Principal)** | ______________________________ |")
-    lines.append(f"| **Audited by (North Star)** | ______________________________ |")
+    lines.append(f"| **Audited by (Auditor)** | ______________________________ |")
     lines.append(f"| **Authorized by (AO)** | ______________________________ |")
     lines.append(f"| **AO Signature** | ______________________________ |")
     lines.append(f"| **Signature Date** | ______________________________ |")
